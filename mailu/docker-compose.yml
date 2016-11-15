@@ -1,0 +1,109 @@
+version: '2'
+
+services:
+
+  http:
+    # build: $FRONTEND
+    image: mailu/$FRONTEND:$VERSION
+    restart: always
+    env_file: .env
+    environment:
+      - "VIRTUAL_HOST=mail.wheretogo.fr"
+      - "VIRTUAL_PORT=443"
+      - "VIRTUAL_PROTO=https"
+      - "LETSENCRYPT_HOST=mail.wheretogo.fr"
+      - "LETSENCRYPT_EMAIL=amaurel90@gmail.com"
+    volumes:
+      - "$ROOT/certs:/certs"
+
+  redis:
+    image: redis:latest
+    restart: always
+    volumes:
+      - "$ROOT/redis:/data"
+
+  imap:
+    # build: dovecot
+    image: mailu/dovecot:$VERSION
+    restart: always
+    env_file: .env
+    ports:
+      - "$BIND_ADDRESS:110:110"
+      - "$BIND_ADDRESS:143:143"
+      - "$BIND_ADDRESS:993:993"
+      - "$BIND_ADDRESS:995:995"
+      - "$BIND_ADDRESS:4190:4190"
+    volumes:
+      - "$ROOT/data:/data"
+      - "$ROOT/mail:/mail"
+      - "$ROOT/certs:/certs"
+      - "$ROOT/overrides:/overrides"
+
+  smtp:
+    # build: postfix
+    image: mailu/postfix:$VERSION
+    restart: always
+    env_file: .env
+    ports:
+      - "$BIND_ADDRESS:25:25"
+      - "$BIND_ADDRESS:465:465"
+      - "$BIND_ADDRESS:587:587"
+    volumes:
+      - "$ROOT/data:/data"
+      - "$ROOT/certs:/certs"
+      - "$ROOT/overrides:/overrides"
+
+  milter:
+    # build: rmilter
+    image: mailu/rmilter:$VERSION
+    restart: always
+    env_file: .env
+    volumes:
+      - "$ROOT/filter:/data"
+      - "$ROOT/dkim:/dkim"
+      - "$ROOT/overrides:/overrides"
+
+  antispam:
+    # build: rspamd
+    image: mailu/rspamd:$VERSION
+    restart: always
+    env_file: .env
+    volumes:
+      - "$ROOT/filter:/var/lib/rspamd"
+
+  antivirus:
+    # build: clamav
+    image: mailu/clamav:$VERSION
+    restart: always
+    env_file: .env
+    volumes:
+      - "$ROOT/filter:/data"
+
+  admin:
+    # build: admin
+    image: mailu/admin:$VERSION
+    restart: always
+    env_file: .env
+    ports:
+      - "127.0.0.1:8000:80"
+    volumes:
+      - "$ROOT/data:/data"
+      - "$ROOT/dkim:/dkim"
+      - "$ROOT/certs:/certs"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  webmail:
+    # build: "$WEBMAIL"
+    image: "mailu/$WEBMAIL:$VERSION"
+    restart: always
+    env_file: .env
+    volumes:
+      - "$ROOT/webmail:/data"
+
+  fetchmail:
+    # build: fetchmail
+    image: mailu/fetchmail:$VERSION
+    restart: always
+    env_file: .env
+    volumes:
+      - "$ROOT/data:/data"
