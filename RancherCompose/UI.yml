@@ -1,0 +1,27 @@
+DockerUI:
+  environment:
+    VIRTUAL_HOST: ui.wheretogo.fr
+    VIRTUAL_PORT: '9000'
+    LETSENCRYPT_HOST: ui.wheretogo.fr
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: uifd/ui-for-docker
+  privileged: true
+  volumes:
+  - /var/run/docker.sock:/var/run/docker.sock
+  - /data
+  net: bridge
+Portainer:
+  environment:
+    VIRTUAL_HOST: port.wheretogo.fr
+    VIRTUAL_PORT: '9000'
+    LETSENCRYPT_HOST: port.wheretogo.fr
+    LETSENCRYPT_EMAIL: amaurel90@gmail.com
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: portainer/portainer
+  volumes:
+  - /var/run/docker.sock:/var/run/docker.sock
+  net: bridge

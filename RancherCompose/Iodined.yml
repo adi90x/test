@@ -1,0 +1,15 @@
+Iodined:
+  ports:
+  - 53:53/udp
+  environment:
+    IODINE_PASS: '060190'
+    IODINE_HOST: io.wheretogo.fr
+    IODINE_IP: 10.0.0.1
+  labels:
+    io.rancher.container.pull_image: always
+  image: adamant/iodine
+  devices:
+  - /dev/net/tun:/dev/net/tun:rwm
+  net: bridge
+  cap_add:
+  - NET_ADMIN

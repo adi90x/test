@@ -1,0 +1,107 @@
+admin:
+  env_file: /data/mailu/.env
+  image: mailu/admin:latest
+  ports:
+  - 127.0.0.1:8000:80
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/data:/data
+  - /home/adrienm/data/mailu/dkim:/dkim
+  - /home/adrienm/data/mailu/certs:/certs
+  - /var/run/docker.sock:/var/run/docker.sock:ro
+  labels:
+   io.rancher.container.pull_image: always
+antispam:
+  env_file: /data/mailu/.env
+  image: mailu/rspamd:latest
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/filter:/var/lib/rspamd
+  labels:
+   io.rancher.container.pull_image: always
+antivirus:
+  env_file: /data/mailu/.env
+  image: mailu/clamav:latest
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/filter:/data
+  labels:
+   io.rancher.container.pull_image: always
+fetchmail:
+  env_file: /data/mailu/.env
+  image: mailu/fetchmail:latest
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/data:/data
+  labels:
+   io.rancher.container.pull_image: always
+http:
+  env_file: /data/mailu/.env
+  environment:
+  - VIRTUAL_HOST=mail.wheretogo.fr
+  - VIRTUAL_PORT=443
+  - VIRTUAL_PROTO=https
+  - LETSENCRYPT_HOST=mail.wheretogo.fr
+  - LETSENCRYPT_EMAIL=amaurel90@gmail.com
+  image: mailu/nginx:latest
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/certs:/certs
+  labels:
+   io.rancher.container.pull_image: always
+imap:
+  env_file: /data/mailu/.env
+  image: mailu/dovecot:latest
+  ports:
+  - $BIND_ADDRESS:110:110
+  - $BIND_ADDRESS:143:143
+  - $BIND_ADDRESS:993:993
+  - $BIND_ADDRESS:995:995
+  - $BIND_ADDRESS:4190:4190
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/data:/data
+  - /home/adrienm/data/mailu/mail:/mail
+  - /home/adrienm/data/mailu/certs:/certs
+  - /home/adrienm/data/mailu/overrides:/overrides
+  labels:
+   io.rancher.container.pull_image: always
+milter:
+  env_file: /data/mailu/.env
+  image: mailu/rmilter:latest
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/filter:/data
+  - /home/adrienm/data/mailu/dkim:/dkim
+  - /home/adrienm/data/mailu/overrides:/overrides
+  labels:
+   io.rancher.container.pull_image: always
+redis:
+  image: redis:latest
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/redis:/data
+  labels:
+   io.rancher.container.pull_image: always
+smtp:
+  env_file: /data/mailu/.env
+  image: mailu/postfix:latest
+  ports:
+  - $BIND_ADDRESS:25:25
+  - $BIND_ADDRESS:465:465
+  - $BIND_ADDRESS:587:587
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/data:/data
+  - /home/adrienm/data/mailu/certs:/certs
+  - /home/adrienm/data/mailu/overrides:/overrides
+  labels:
+   io.rancher.container.pull_image: always
+webmail:
+  env_file: /data/mailu/.env
+  image: mailu/roundcube:latest
+  restart: always
+  volumes:
+  - /home/adrienm/data/mailu/webmail:/data
+  labels:
+   io.rancher.container.pull_image: always
