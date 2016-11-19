@@ -46,7 +46,7 @@ sudo curl -o /usr/bin/docker-compose -L "https://github.com/docker/compose/relea
 sudo chmod +x /usr/bin/docker-compose
 
 #Nginx Reverse Proxy avec fichier parametrage dans vhost.d
-docker run -d -p 80:80 -p 443:443 -e DEFAULT_HOST=wheretogo.fr --name nginx-proxy -v /home/adrienm/data/htpasswd:/etc/nginx/htpasswd -v /home/adrienm/data/vhost.d:/etc/nginx/vhost.d:ro -v /var/run/docker.sock:/tmp/docker.sock:ro -v /home/adrienm/data/certs:/etc/nginx/certs:ro -v /usr/share/nginx/html jwilder/nginx-proxy
+docker run -d  --restart=always -p 80:80 -p 443:443 -e DEFAULT_HOST=wheretogo.fr --name nginx-proxy -v /home/adrienm/data/htpasswd:/etc/nginx/htpasswd -v /home/adrienm/data/vhost.d:/etc/nginx/vhost.d:ro -v /var/run/docker.sock:/tmp/docker.sock:ro -v /home/adrienm/data/certs:/etc/nginx/certs:ro -v /usr/share/nginx/html jwilder/nginx-proxy
 #Docker UI 
 docker run -d --name uidocker -e VIRTUAL_PORT=9000 -e VIRTUAL_HOST=ui.wheretogo.fr -e LETSENCRYPT_HOST=ui.wheretogo.fr -e LETSENCRYPT_EMAIL=amaurel90@gmail.com --privileged -v /var/run/docker.sock:/var/run/docker.sock uifd/ui-for-docker
 #Installation MailU
@@ -57,7 +57,7 @@ cd ..
 #Connect nginx-proxy au reseau mailu
 docker network connect mail_default nginx-proxy
 #Nginx Auto Lets Encrypt certifs 
-docker run -d --name nginx-letsencrypt -v /home/adrienm/data/vhost.d:/etc/nginx/vhost.d:rw -v /home/adrienm/data/certs:/etc/nginx/certs:rw --volumes-from nginx-proxy -v /var/run/docker.sock:/var/run/docker.sock:ro jrcs/letsencrypt-nginx-proxy-companion
+docker run -d --restart=always --name nginx-letsencrypt -v /home/adrienm/data/vhost.d:/etc/nginx/vhost.d:rw -v /home/adrienm/data/certs:/etc/nginx/certs:rw --volumes-from nginx-proxy -v /var/run/docker.sock:/var/run/docker.sock:ro jrcs/letsencrypt-nginx-proxy-companion
 #Iodine
 docker run -d --name iodine -p 53:53/udp --cap-add=NET_ADMIN --device /dev/net/tun -e IODINE_HOST=io.wheretogo.fr -e IODINE_PASS=060190 -e IODINE_IP=10.0.0.1 adamant/iodine
 
