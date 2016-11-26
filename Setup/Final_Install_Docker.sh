@@ -32,8 +32,8 @@ echo "bind 'set match-hidden-files off'" >> /home/adrienm/.bashrc
 su adrienm
 mkdir /home/adrienm/data/
 mkdir /home/adrienm/Script/
+Ubuntu Server
 mkdir /home/adrienm/www/
-
 #Ajout utilisateur au group docker pour lancement sans sudo
 sudo groupadd docker
 sudo usermod -aG docker $USER
