@@ -3,9 +3,24 @@
     restart: always
     labels: 
      io.rancher.container.pull_image: always
-    env_file:
-     - "answers.txt"
     environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
      VIRTUAL_HOST: ${VIRTUAL_HOST}
@@ -18,7 +33,23 @@
     labels: 
      io.rancher.container.pull_image: always
     env_file:
-     - "answers.txt"
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
     restart: always
     volumes:
       - "${ROOT}/redis:/data"
@@ -26,8 +57,24 @@
     image: mailu/dovecot:${VERSION}
     labels: 
      io.rancher.container.pull_image: always
-    env_file:
-     - "answers.txt"
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
     restart: always
     ports:
       - "${BIND_ADDRESS}:110:110"
@@ -45,8 +92,24 @@
     restart: always
     labels: 
      io.rancher.container.pull_image: always
-    env_file:
-     - "answers.txt"
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
     ports:
       - "${BIND_ADDRESS}:25:25"
       - "${BIND_ADDRESS}:465:465"
@@ -60,8 +123,24 @@
     labels: 
      io.rancher.container.pull_image: always
     restart: always
-    env_file:
-     - "answers.txt"
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
     volumes:
       - "${ROOT}/filter:/data"
       - "${ROOT}/dkim:/dkim"
@@ -71,8 +150,24 @@
     restart: always
     labels: 
      io.rancher.container.pull_image: always
-    env_file:
-     - "answers.txt"
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
     volumes:
       - "${ROOT}/filter:/var/lib/rspamd"
  antivirus:
@@ -80,8 +175,24 @@
     restart: always
     labels: 
      io.rancher.container.pull_image: always
-    env_file:
-     - "answers.txt"
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
     volumes:
       - "${ROOT}/filter:/data"
  admin:
@@ -89,8 +200,24 @@
     restart: always
     labels: 
      io.rancher.container.pull_image: always
-    env_file:
-     - "answers.txt"
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
     ports:
       - "127.0.0.1:8000:80"
     volumes:
@@ -103,8 +230,24 @@
     restart: always
     labels: 
      io.rancher.container.pull_image: always
-    env_file:
-     - "answers.txt"
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
     volumes:
       - "${ROOT}/webmail:/data"
  fetchmail:
@@ -112,7 +255,23 @@
     restart: always
     labels: 
      io.rancher.container.pull_image: always
-    env_file:
-     - "answers.txt"
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
     volumes:
       - "${ROOT}/data:/data"
