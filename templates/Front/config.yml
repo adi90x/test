@@ -1,5 +1,5 @@
 name: Nginx Proxy
-description: Setup Nginx Proxy for virtual host and auto Let's encrypt
+description: "Setup Nginx Proxy for virtual host and auto Let\'s encrypt"
 version: 0
 category: Perso
 maintainer: AdrienM
