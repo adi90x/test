@@ -1,6 +1,6 @@
 name: VNC Serveur
 description: Create a virtual Desktop
-version: 0
+version: Initial
 category: Perso
 maintainer: AdrienM
 license: Apache 2.0
