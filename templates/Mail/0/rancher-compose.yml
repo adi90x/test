@@ -86,28 +86,31 @@ fetchmail:
     label: "Frontend web server"
     default: "nginx"
     type: enum   
-      options: # List of options if using type of `enum`
+      options: 
         - "nginx"
         - "none"
   - variable: WEBMAIL
-    label: "Webmail server (roundcube, rainloop, none)"
+    label: "Webmail server type"
     default: "roundcube"
     type: enum   
-      options: # List of options if using type of `enum`
+      options: 
         - "roundcube"
         - "rainloop"
         - "none"
   - variable: EXPOSE_ADMIN
-    label: "Expose administration (yes or no)"
+    label: "Expose administration"
     default: "yes"
     type: enum   
-      options: # List of options if using type of `enum`
+      options: 
         - "yes"
         - "no"
   - variable: ENABLE_CERTBOT
-    label: "Use Letsencrypt to generate a TLS cert (True or False)"
+    label: "Use Letsencrypt to generate a TLS cert"
     default: "False"
-    type: string
+    type: enum   
+      options: 
+        - "True"
+        - "False"
   - variable: MESSAGE_SIZE_LIMIT
     label: "Message size limit in bytes"
     default: "50000000"
