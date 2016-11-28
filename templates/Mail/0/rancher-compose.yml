@@ -37,11 +37,6 @@ fetchmail:
     default: "https"
     required: true
     type: string  
-  - variable: LETSENCRYPT_HOST
-    label: "Lets's Encrypt Host to setup SSL"
-    default: "mail.wheretogo.fr"
-    required: true
-    type: string
   - variable: LETSENCRYPT_EMAIL
     label: "Lets's Encrypt Email to setup SSL"
     default: "amaurel90@gmail.com"

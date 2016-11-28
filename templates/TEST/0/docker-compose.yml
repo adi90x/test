@@ -1,8 +1,0 @@
- http:
-    image: mailu/$FRONTEND:${VERSION}
-    restart: always
-    labels: io.rancher.container.pull_image: always
-    environment:
-      LETSENCRYPT_EMAIL: ${LE_MAIL}
-    volumes:
-      "${ROOT}/certs:/certs"
