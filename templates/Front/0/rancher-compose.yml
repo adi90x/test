@@ -1,22 +1,16 @@
-CreateClient:
+Proxy:
   scale: 1
-Server:
-  scale: 1
-RecupClientConfig:
+Letsencrypt:
   scale: 1
 .catalog:
  name: "Version Initial"
  version: "0.0.1"
  questions:
-  - variable: PORT
-    label: "VPN Serveur listening port"
-    default: 1194
-    type: int
-  - variable: USER
-    label: "VPN config username"
-    default: "Adi"
-    type: string  
-  - variable: PATH
-    label: "VPN config saving path on host"
-    default: "/home/adrienm/data/openvpn/"
+  - variable: DEFAULT_HOST
+    label: "Default Virtual Host"
+    default: wheretogo.fr
     type: string
+  - variable: PATH
+    label: "Host Path for config files"
+    default: "/home/adrienm/data"
+    type: string 
