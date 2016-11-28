@@ -1,5 +1,5 @@
-name: TunnelDNS
-description: Start a IP-Over-DNS Tunnel using Iodine
+name: DNS Tunnel
+description: "Start a IP-Over-DNS Tunnel using Iodine"
 version: 0
 category: Perso
 maintainer: AdrienM
