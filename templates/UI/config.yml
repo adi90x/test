@@ -1,5 +1,5 @@
-name: VPN Server
-description: Create a VPN Serveur
+name: UI
+description: Lauching Portainer and DockerUI
 version: 0
 category: Perso
 maintainer: AdrienM
