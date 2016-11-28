@@ -84,8 +84,8 @@ fetchmail:
     type: string
   - variable: FRONTEND
     label: "Frontend web server"
-    type: enum   
-      options: 
+    type: enum
+     options: 
         - "nginx"
         - "none"
   - variable: WEBMAIL
