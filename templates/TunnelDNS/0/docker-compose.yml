@@ -1,6 +1,6 @@
 Iodined:
   ports:
-  - ${PORT}:53/udp
+    - ${PORT}:53/udp
   environment:
     IODINE_PASS: ${PASS}
     IODINE_HOST: ${HOST}
@@ -9,7 +9,7 @@ Iodined:
     io.rancher.container.pull_image: always
   image: adamant/iodine
   devices:
-  - /dev/net/tun:/dev/net/tun:rwm
+    - /dev/net/tun:/dev/net/tun:rwm
   net: bridge
   cap_add:
-  - NET_ADMIN
+    - NET_ADMIN
