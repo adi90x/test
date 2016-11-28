@@ -25,67 +25,67 @@ fetchmail:
   - variable: VIRTUAL_HOST
     label: "Mail Server Virtual Host"
     default: "mail.wheretogo.fr"
-    required: "true"
+    required: true
     type: string
   - variable: VIRTUAL_PORT
     label: "Mail Server Virtual Port"
     default: "443"
-    required: "true"
+    required: true
     type: string
   - variable: VIRTUAL_PROTO
     label: "Mail Server Virtual Proto"
     default: "https"
-    required: "true"
+    required: true
     type: string  
   - variable: LETSENCRYPT_HOST
     label: "Lets's Encrypt Host to setup SSL"
     default: "mail.wheretogo.fr"
-    required: "true"
+    required: true
     type: string
   - variable: LETSENCRYPT_EMAIL
     label: "Lets's Encrypt Email to setup SSL"
     default: "amaurel90@gmail.com"
-    required: "true"
+    required: true
     type: string
   - variable: ROOT
     label: "Root Path for Mailu on host"
     default: "/home/adrienm/data/mailu"
-    required: "true"
+    required: true
     type: string
   - variable: VERSION
     label: "Mailu Version (stable,latest,...)"
     default: "latest"
-    required: "true"
+    required: true
     type: string
   - variable: SECRET_KEY
     label: "Mailu Secret Key should be random & 16 characters"
     default: "060190adrienmadi"
-    required: "true"
+    required: true
     type: string
   - variable: BIND_ADDRESS
     label: "Mailu address where listening should bind"
     default: "0.0.0.0"
-    required: "true"
+    required: true
     type: string
   - variable: DOMAIN
     label: "Exposed mail domain"
     default: "wheretogo.fr"
-    required: "true"
+    required: true
     type: string
   - variable: HOSTNAME
     label: "Exposed mail-server hostname"
     default: "mail.wheretogo.fr"
-    required: "true"
+    required: true
     type: string
   - variable: POSTMASTER
     label: "Postmaster local part"
     default: "admin"
-    required: "true"
+    required: true
     type: string
   - variable: COMPOSE_PROJECT_NAME
     label: "Docker-compose project name"
     default: "mail"
-    required: "true"
+    required: true
     type: string
   - variable: FRONTEND
     label: "Frontend web server (nginx or none)"

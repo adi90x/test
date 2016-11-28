@@ -7,10 +7,10 @@ http:
   - variable: ROOT
     label: "Mail Server Virtual Host"
     default: "mail.wheretogo.fr"
-    required: "true"
+    required: true
     type: string
   - variable: LE_MAIL
     label: "Mail Server Virtual Host"
     default: "mail.wheretogo.fr"
-    required: "true"
+    required: true
     type: string	
