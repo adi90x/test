@@ -1,0 +1,7 @@
+name: TEST
+description: "Testing catalog"
+version: 0
+category: Perso
+maintainer: AdrienM
+license: Apache 2.0
+projectURl:

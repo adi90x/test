@@ -1,0 +1,13 @@
+ http:
+    image: mailu/$FRONTEND:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
+    environment:
+      - VIRTUAL_HOST: ${VIRTUAL_HOST}
+      - VIRTUAL_PORT: ${VIRTUAL_PORT}
+      - VIRTUAL_PROTO: ${VIRTUAL_PROTO}
+      - LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL: ${LE_MAIL}
+    volumes:
+      - "${ROOT}/certs:/certs"
