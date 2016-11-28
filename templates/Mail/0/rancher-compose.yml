@@ -19,8 +19,6 @@ milter:
 fetchmail:
   scale: 1
 .catalog:
-
-      - LETSENCRYPT_EMAIL: ${LE_MAIL}
  name: "Version Initial"
  version: "0.0.1"
  questions:
