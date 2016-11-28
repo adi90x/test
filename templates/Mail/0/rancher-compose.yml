@@ -105,7 +105,7 @@ fetchmail:
         - "yes"
         - "no"
   - variable: ENABLE_CERTBOT
-    label: "Use Letsencrypt to generate a TLS cert"
+    label: "Use Certbot to generate a TLS cert"
     default: "False"
     type: enum   
     options: 
@@ -120,7 +120,7 @@ fetchmail:
     default: "172.16.0.0/12,10.32.0.0/12"
     type: string
   - variable: RELAYHOST
-    label: "Will relay all outgoing mails if configured"
+    label: "Host to relay (should be empty to be safe)"
     default: ""
     type: string
   - variable: FETCHMAIL_DELAY
@@ -129,6 +129,9 @@ fetchmail:
     type: string
   - variable: DEBUG
     label: "Enable Debug"
-    default: "True"
-    type: string
+    default: "False"
+    type: enum   
+    options: 
+        - "True"
+        - "False"
     
