@@ -83,17 +83,27 @@ fetchmail:
     required: true
     type: string
   - variable: FRONTEND
-    label: "Frontend web server (nginx or none)"
+    label: "Frontend web server"
     default: "nginx"
-    type: string
+    type: enum   
+      options: # List of options if using type of `enum`
+        - "nginx"
+        - "none"
   - variable: WEBMAIL
     label: "Webmail server (roundcube, rainloop, none)"
     default: "roundcube"
-    type: string
+    type: enum   
+      options: # List of options if using type of `enum`
+        - "roundcube"
+        - "rainloop"
+        - "none"
   - variable: EXPOSE_ADMIN
     label: "Expose administration (yes or no)"
     default: "yes"
-    type: string
+    type: enum   
+      options: # List of options if using type of `enum`
+        - "yes"
+        - "no"
   - variable: ENABLE_CERTBOT
     label: "Use Letsencrypt to generate a TLS cert (True or False)"
     default: "False"
