@@ -1,6 +1,6 @@
  http:
     image: mailu/$FRONTEND:${VERSION}
-    restart: always
+    #restart: always
     labels: io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
