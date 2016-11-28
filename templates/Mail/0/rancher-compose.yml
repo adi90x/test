@@ -84,14 +84,12 @@ fetchmail:
     type: string
   - variable: FRONTEND
     label: "Frontend web server"
-    default: "nginx"
     type: enum   
       options: 
         - "nginx"
         - "none"
   - variable: WEBMAIL
     label: "Webmail server type"
-    default: "roundcube"
     type: enum   
       options: 
         - "roundcube"
@@ -99,18 +97,16 @@ fetchmail:
         - "none"
   - variable: EXPOSE_ADMIN
     label: "Expose administration"
-    default: "yes"
     type: enum   
       options: 
         - "yes"
         - "no"
   - variable: ENABLE_CERTBOT
     label: "Use Letsencrypt to generate a TLS cert"
-    default: "False"
     type: enum   
       options: 
-        - "True"
         - "False"
+        - "True"
   - variable: MESSAGE_SIZE_LIMIT
     label: "Message size limit in bytes"
     default: "50000000"
