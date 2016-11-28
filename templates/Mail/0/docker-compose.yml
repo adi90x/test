@@ -1,35 +1,114 @@
-CreateClient:
-  labels:
-    io.rancher.container.pull_image: always
-    io.rancher.container.start_once: 'true'
-  tty: true
-  command:
-  - easyrsa
-  - build-client-full
-  - ${USER}
-  - nopass
-  image: kylemanna/openvpn
-  volumes:
-  - ${PATH}:/etc/openvpn
-Server:
-  ports:
-  - ${PORT}:1194/udp
-  labels:
-    io.rancher.container.pull_image: always
-  tty: true
-  image: kylemanna/openvpn
-  volumes:
-  - ${PATH}:/etc/openvpn
-  net: bridge
-  cap_add:
-  - NET_ADMIN
-RecupClientConfig:
-  labels:
-    io.rancher.container.pull_image: always
-    io.rancher.container.start_once: 'true'
-  tty: true
-  command:
-  - ovpn_getclient_all
-  image: kylemanna/openvpn
-  volumes:
-  - ${PATH}:/etc/openvpn
+http:
+    # build: $FRONTEND
+    image: mailu/$FRONTEND:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
+    environment:
+      - VIRTUAL_HOST: ${VIRTUAL_HOST}
+      - VIRTUAL_PORT: ${VIRTUAL_PORT}
+      - VIRTUAL_PROTO: ${VIRTUAL_PROTO}
+      - LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL: ${LE_MAIL}
+    volumes:
+      - "${ROOT}/certs:/certs"
+
+  redis:
+    image: redis:${VERSION}
+    labels: io.rancher.container.pull_image: always
+    restart: always
+    volumes:
+      - "${ROOT}/redis:/data"
+
+  imap:
+    # build: dovecot
+    image: mailu/dovecot:${VERSION}
+    labels: io.rancher.container.pull_image: always
+    restart: always
+    env_file: answers.txt
+    ports:
+      - "${BIND_ADDRESS}:110:110"
+      - "${BIND_ADDRESS}:143:143"
+      - "${BIND_ADDRESS}:993:993"
+      - "${BIND_ADDRESS}:995:995"
+      - "${BIND_ADDRESS}:4190:4190"
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/mail:/mail"
+      - "${ROOT}/certs:/certs"
+      - "${ROOT}/overrides:/overrides"
+
+  smtp:
+    # build: postfix
+    image: mailu/postfix:${VERSION}
+    restart: always
+    env_file: answers.txt
+    labels: io.rancher.container.pull_image: always
+    ports:
+      - "${BIND_ADDRESS}:25:25"
+      - "${BIND_ADDRESS}:465:465"
+      - "${BIND_ADDRESS}:587:587"
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/certs:/certs"
+      - "${ROOT}/overrides:/overrides"
+
+  milter:
+    # build: rmilter
+    image: mailu/rmilter:${VERSION}
+    restart: always
+    env_file: answers.txt
+    volumes:
+      - "${ROOT}/filter:/data"
+      - "${ROOT}/dkim:/dkim"
+      - "${ROOT}/overrides:/overrides"
+
+  antispam:
+    # build: rspamd
+    image: mailu/rspamd:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
+    volumes:
+      - "${ROOT}/filter:/var/lib/rspamd"
+
+  antivirus:
+    # build: clamav
+    image: mailu/clamav:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
+    volumes:
+      - "${ROOT}/filter:/data"
+
+  admin:
+    # build: admin
+    image: mailu/admin:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
+    ports:
+      - "127.0.0.1:8000:80"
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/dkim:/dkim"
+      - "${ROOT}/certs:/certs"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  webmail:
+    # build: "${WEBMAIL}"
+    image: "mailu/${WEBMAIL}:${VERSION}"
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
+    volumes:
+      - "${ROOT}/webmail:/data"
+
+  fetchmail:
+    # build: fetchmail
+    image: mailu/fetchmail:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
+    volumes:
+      - "${ROOT}/data:/data"
