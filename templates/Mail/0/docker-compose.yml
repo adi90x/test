@@ -30,7 +30,8 @@
       - "${ROOT}/certs:/certs"
  redis:
     image: redis:${VERSION}
-    labels: io.rancher.container.pull_image: always
+    labels: 
+     io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
@@ -54,7 +55,8 @@
       - "${ROOT}/redis:/data"
  imap:
     image: mailu/dovecot:${VERSION}
-    labels: io.rancher.container.pull_image: always
+    labels: 
+     io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
@@ -88,7 +90,8 @@
  smtp:
     image: mailu/postfix:${VERSION}
     restart: always
-    labels: io.rancher.container.pull_image: always
+    labels: 
+     io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
@@ -117,7 +120,8 @@
       - "${ROOT}/overrides:/overrides"
  milter:
     image: mailu/rmilter:${VERSION}
-    labels: io.rancher.container.pull_image: always
+    labels: 
+     io.rancher.container.pull_image: always
     restart: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
@@ -144,7 +148,8 @@
  antispam:
     image: mailu/rspamd:${VERSION}
     restart: always
-    labels: io.rancher.container.pull_image: always
+    labels: 
+     io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
@@ -168,7 +173,8 @@
  antivirus:
     image: mailu/clamav:${VERSION}
     restart: always
-    labels: io.rancher.container.pull_image: always
+    labels: 
+     io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
@@ -192,7 +198,8 @@
  admin:
     image: mailu/admin:${VERSION}
     restart: always
-    labels: io.rancher.container.pull_image: always
+    labels: 
+     io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
@@ -221,7 +228,8 @@
  webmail:
     image: "mailu/${WEBMAIL}:${VERSION}"
     restart: always
-    labels: io.rancher.container.pull_image: always
+    labels: 
+     io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
@@ -245,7 +253,8 @@
  fetchmail:
     image: mailu/fetchmail:${VERSION}
     restart: always
-    labels: io.rancher.container.pull_image: always
+    labels: 
+     io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
