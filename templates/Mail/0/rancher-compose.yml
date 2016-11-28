@@ -85,26 +85,26 @@ fetchmail:
   - variable: FRONTEND
     label: "Frontend web server"
     type: enum
-     options: 
+    options: 
         - "nginx"
         - "none"
   - variable: WEBMAIL
     label: "Webmail server type"
     type: enum   
-      options: 
+    options: 
         - "roundcube"
         - "rainloop"
         - "none"
   - variable: EXPOSE_ADMIN
     label: "Expose administration"
     type: enum   
-      options: 
+    options: 
         - "yes"
         - "no"
   - variable: ENABLE_CERTBOT
     label: "Use Letsencrypt to generate a TLS cert"
     type: enum   
-      options: 
+    options: 
         - "False"
         - "True"
   - variable: MESSAGE_SIZE_LIMIT
@@ -116,7 +116,7 @@ fetchmail:
     default: "172.16.0.0/12,10.32.0.0/12"
     type: string
   - variable: RELAYHOST
-    label: "Will relay all outgoing mails if configured"
+    label: "Host to relay ( keep blank to avoid relaying everything)"
     default: ""
     type: string
   - variable: FETCHMAIL_DELAY
