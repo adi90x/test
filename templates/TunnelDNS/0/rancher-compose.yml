@@ -8,7 +8,7 @@ Iodined:
     label: "Iodine serveur listening port"
     default: 53
     type: int
-    - variable: PASS
+  - variable: PASS
     label: "Iodine Password"
     default: "060190"
     type: string  
@@ -16,7 +16,7 @@ Iodined:
     label: "Hostname iodine should be listening"
     default: "io.wheretogo.fr"
     type: string
-- variable: IP
+  - variable: IP
     label: "Default IP iodine should use"
     default: "10.0.0.1"
     type: string    
