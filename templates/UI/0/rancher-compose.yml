@@ -1,22 +1,16 @@
-CreateClient:
+DockerUI:
   scale: 1
-Server:
-  scale: 1
-RecupClientConfig:
+Portainer:
   scale: 1
 .catalog:
  name: "Version Initial"
  version: "0.0.1"
  questions:
-  - variable: PORT
-    label: "VPN Serveur listening port"
-    default: 1194
-    type: int
-    - variable: USER
-    label: "VPN config username"
-    default: "Adi"
-    type: string  
-  - variable: PATH
-    label: "VPN config saving path on host"
-    default: "/home/adrienm/data/openvpn/"
+  - variable: DOCKERUI_HOST
+    label: "DockerUI virtual host"
+    default: "ui.wheretogo.fr"
+    type: string
+  - variable: PORTAINER_HOST
+    label: "Portainer virtual host"
+    default: "port.wheretogo.fr"
     type: string
