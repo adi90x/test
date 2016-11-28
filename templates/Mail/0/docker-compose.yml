@@ -1,5 +1,4 @@
  http:
-    # build: $FRONTEND
     image: mailu/$FRONTEND:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
@@ -12,16 +11,13 @@
       - LETSENCRYPT_EMAIL: ${LE_MAIL}
     volumes:
       - "${ROOT}/certs:/certs"
-
  redis:
     image: redis:${VERSION}
     labels: io.rancher.container.pull_image: always
     restart: always
     volumes:
       - "${ROOT}/redis:/data"
-
  imap:
-    # build: dovecot
     image: mailu/dovecot:${VERSION}
     labels: io.rancher.container.pull_image: always
     restart: always
@@ -37,9 +33,7 @@
       - "${ROOT}/mail:/mail"
       - "${ROOT}/certs:/certs"
       - "${ROOT}/overrides:/overrides"
-
  smtp:
-    # build: postfix
     image: mailu/postfix:${VERSION}
     restart: always
     env_file: answers.txt
@@ -52,9 +46,7 @@
       - "${ROOT}/data:/data"
       - "${ROOT}/certs:/certs"
       - "${ROOT}/overrides:/overrides"
-
  milter:
-    # build: rmilter
     image: mailu/rmilter:${VERSION}
     restart: always
     env_file: answers.txt
@@ -62,27 +54,21 @@
       - "${ROOT}/filter:/data"
       - "${ROOT}/dkim:/dkim"
       - "${ROOT}/overrides:/overrides"
-
  antispam:
-    # build: rspamd
     image: mailu/rspamd:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
     env_file: answers.txt
     volumes:
       - "${ROOT}/filter:/var/lib/rspamd"
-
  antivirus:
-    # build: clamav
     image: mailu/clamav:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
     env_file: answers.txt
     volumes:
       - "${ROOT}/filter:/data"
-
  admin:
-    # build: admin
     image: mailu/admin:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
@@ -94,18 +80,14 @@
       - "${ROOT}/dkim:/dkim"
       - "${ROOT}/certs:/certs"
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
  webmail:
-    # build: "${WEBMAIL}"
     image: "mailu/${WEBMAIL}:${VERSION}"
     restart: always
     labels: io.rancher.container.pull_image: always
     env_file: answers.txt
     volumes:
       - "${ROOT}/webmail:/data"
-
  fetchmail:
-    # build: fetchmail
     image: mailu/fetchmail:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
