@@ -12,7 +12,7 @@ RecupClientConfig:
     label: "VPN Serveur listening port"
     default: 1194
     type: int
-    - variable: USER
+  - variable: USER
     label: "VPN config username"
     default: "Adi"
     type: string  
