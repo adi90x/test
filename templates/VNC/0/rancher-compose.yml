@@ -1,6 +1,6 @@
 VNCServer:
  scale: 1
-.catalog
+.catalog:
  name: "Version Initial"
  version: "0.0.1"
  questions:
