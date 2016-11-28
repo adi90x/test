@@ -14,3 +14,7 @@ Portainer:
     label: "Portainer virtual host"
     default: "port.wheretogo.fr"
     type: string
+  - variable: LE_EMAIL
+    label: "Email to use for Let's Encrypt Certs"
+    default: "amaurel90@gmail.com"
+    type: string
