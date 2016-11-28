@@ -2,6 +2,12 @@
     image: mailu/$FRONTEND:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      VIRTUAL_PORT: ${VIRTUAL_PORT}
+      VIRTUAL_PROTO: ${VIRTUAL_PROTO}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_EMAIL: ${LE_MAIL}
     volumes:
       - "${ROOT}/certs:/certs"
  redis:
@@ -14,6 +20,7 @@
     image: mailu/dovecot:${VERSION}
     labels: io.rancher.container.pull_image: always
     restart: always
+    env_file: answers.txt
     ports:
       - "${BIND_ADDRESS}:110:110"
       - "${BIND_ADDRESS}:143:143"
@@ -28,6 +35,7 @@
  smtp:
     image: mailu/postfix:${VERSION}
     restart: always
+    env_file: answers.txt
     labels: io.rancher.container.pull_image: always
     ports:
       - "${BIND_ADDRESS}:25:25"
@@ -40,6 +48,7 @@
  milter:
     image: mailu/rmilter:${VERSION}
     restart: always
+    env_file: answers.txt
     volumes:
       - "${ROOT}/filter:/data"
       - "${ROOT}/dkim:/dkim"
@@ -48,18 +57,21 @@
     image: mailu/rspamd:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
     volumes:
       - "${ROOT}/filter:/var/lib/rspamd"
  antivirus:
     image: mailu/clamav:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
     volumes:
       - "${ROOT}/filter:/data"
  admin:
     image: mailu/admin:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
     ports:
       - "127.0.0.1:8000:80"
     volumes:
@@ -71,11 +83,13 @@
     image: "mailu/${WEBMAIL}:${VERSION}"
     restart: always
     labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
     volumes:
       - "${ROOT}/webmail:/data"
  fetchmail:
     image: mailu/fetchmail:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
+    env_file: answers.txt
     volumes:
       - "${ROOT}/data:/data"
