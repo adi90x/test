@@ -9,4 +9,4 @@
       LETSENCRYPT_HOST: ${VIRTUAL_HOST}
       LETSENCRYPT_EMAIL: ${LE_MAIL}
     volumes:
-      - "${ROOT}/certs:/certs"
+      "${ROOT}/certs:/certs"
