@@ -1,7 +1,7 @@
-name: VPN Server
-description: Create a VPN Serveur
+name: Mail Server
+description: Create a Mail Serveur based on Mailu
 version: 0
 category: Perso
 maintainer: AdrienM
 license: Apache 2.0
-projectURl:
+projectURl: "https://github.com/Mailu/Mailu"
