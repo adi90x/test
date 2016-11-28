@@ -1,35 +1,28 @@
-CreateClient:
-  labels:
-    io.rancher.container.pull_image: always
-    io.rancher.container.start_once: 'true'
-  tty: true
-  command:
-  - easyrsa
-  - build-client-full
-  - ${USER}
-  - nopass
-  image: kylemanna/openvpn
-  volumes:
-  - ${PATH}:/etc/openvpn
-Server:
-  ports:
-  - ${PORT}:1194/udp
+DockerUI:
+  environment:
+    VIRTUAL_HOST: ${DOCKERUI_HOST}
+    VIRTUAL_PORT: '9000'
+    LETSENCRYPT_HOST: ${DOCKERUI_HOST}
+    LETSENCRYPT_EMAIL: ${LE_EMAIL}
   labels:
     io.rancher.container.pull_image: always
   tty: true
-  image: kylemanna/openvpn
+  image: uifd/ui-for-docker
+  privileged: true
   volumes:
-  - ${PATH}:/etc/openvpn
+  - /var/run/docker.sock:/var/run/docker.sock
+  - /data
   net: bridge
-  cap_add:
-  - NET_ADMIN
-RecupClientConfig:
+Portainer:
+  environment:
+    VIRTUAL_HOST: ${DOCKERUI_HOST}
+    VIRTUAL_PORT: '9000'
+    LETSENCRYPT_HOST: ${DOCKERUI_HOST}
+    LETSENCRYPT_EMAIL: ${LE_EMAIL}
   labels:
     io.rancher.container.pull_image: always
-    io.rancher.container.start_once: 'true'
   tty: true
-  command:
-  - ovpn_getclient_all
-  image: kylemanna/openvpn
+  image: portainer/portainer
   volumes:
-  - ${PATH}:/etc/openvpn
+  - /var/run/docker.sock:/var/run/docker.sock
+  net: bridge
