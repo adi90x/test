@@ -1,249 +1,267 @@
-smtp:
-  ports:
-  - 25:25/tcp
-  - 465:465/tcp
-  - 587:587/tcp
-  environment:
-    BIND_ADDRESS: 0.0.0.0
-    COMPOSE_PROJECT_NAME: mail
-    DEBUG: 'true'
-    DOMAIN: wheretogo.fr
-    ENABLE_CERTBOT: 'True'
-    EXPOSE_ADMIN: 'yes'
-    FETCHMAIL_DELAY: '600'
-    FRONTEND: nginx
-    HOSTNAME: mail.wheretogo.fr
-    MESSAGE_SIZE_LIMIT: '50000000'
-    POSTMASTER: admin
-    RELAYHOST: ''
-    RELAYNETS: 172.16.0.0/12,10.32.0.0/12
-    ROOT: /home/adrienm/data/mailu
-    SECRET_KEY: 060190adrienmadi
-    VERSION: latest
-    WEBMAIL: roundcube
-  labels:
-    io.rancher.container.pull_image: always
-  image: mailu/postfix:latest
-  volumes:
-  - /home/adrienm/data/mailu/data:/data
-  - /home/adrienm/data/mailu/certs:/certs
-  - /home/adrienm/data/mailu/overrides:/overrides
-antivirus:
-  environment:
-    BIND_ADDRESS: 0.0.0.0
-    COMPOSE_PROJECT_NAME: mail
-    DEBUG: 'true'
-    DOMAIN: wheretogo.fr
-    ENABLE_CERTBOT: 'True'
-    EXPOSE_ADMIN: 'yes'
-    FETCHMAIL_DELAY: '600'
-    FRONTEND: nginx
-    HOSTNAME: mail.wheretogo.fr
-    MESSAGE_SIZE_LIMIT: '50000000'
-    POSTMASTER: admin
-    RELAYHOST: '""'
-    RELAYNETS: 172.16.0.0/12
-    ROOT: /home/adrienm/data/mailu
-    SECRET_KEY: 060190adrienmadi
-    VERSION: latest
-    WEBMAIL: roundcube
-  labels:
-    io.rancher.container.pull_image: always
-  image: mailu/clamav:latest
-  volumes:
-  - /home/adrienm/data/mailu/filter:/data
-webmail:
-  environment:
-    BIND_ADDRESS: 0.0.0.0
-    COMPOSE_PROJECT_NAME: mail
-    DEBUG: 'true'
-    DOMAIN: wheretogo.fr
-    ENABLE_CERTBOT: 'True'
-    EXPOSE_ADMIN: 'yes'
-    FETCHMAIL_DELAY: '600'
-    FRONTEND: nginx
-    HOSTNAME: mail.wheretogo.fr
-    MESSAGE_SIZE_LIMIT: '50000000'
-    POSTMASTER: admin
-    RELAYHOST: '""'
-    RELAYNETS: 172.16.0.0/12
-    ROOT: /home/adrienm/data/mailu
-    SECRET_KEY: 060190adrienmadi
-    VERSION: latest
-    WEBMAIL: roundcube
-  labels:
-    io.rancher.container.pull_image: always
-  image: mailu/roundcube:latest
-  volumes:
-  - /home/adrienm/data/mailu/webmail:/data
-redis:
-  labels:
-    io.rancher.container.pull_image: always
-  image: redis:latest
-  volumes:
-  - /home/adrienm/data/mailu/redis:/data
-imap:
-  ports:
-  - 110:110/tcp
-  - 143:143/tcp
-  - 4190:4190/tcp
-  - 993:993/tcp
-  - 995:995/tcp
-  environment:
-    BIND_ADDRESS: 0.0.0.0
-    COMPOSE_PROJECT_NAME: mail
-    DEBUG: 'true'
-    DOMAIN: wheretogo.fr
-    ENABLE_CERTBOT: 'True'
-    EXPOSE_ADMIN: 'yes'
-    FETCHMAIL_DELAY: '600'
-    FRONTEND: nginx
-    HOSTNAME: mail.wheretogo.fr
-    MESSAGE_SIZE_LIMIT: '50000000'
-    POSTMASTER: admin
-    RELAYHOST: '""'
-    RELAYNETS: 172.16.0.0/12
-    ROOT: /home/adrienm/data/mailu
-    SECRET_KEY: 060190adrienmadi
-    VERSION: latest
-    WEBMAIL: roundcube
-  labels:
-    io.rancher.container.pull_image: always
-  image: mailu/dovecot:latest
-  volumes:
-  - /home/adrienm/data/mailu/data:/data
-  - /home/adrienm/data/mailu/mail:/mail
-  - /home/adrienm/data/mailu/certs:/certs
-  - /home/adrienm/data/mailu/overrides:/overrides
-http:
-  environment:
-    BIND_ADDRESS: 0.0.0.0
-    COMPOSE_PROJECT_NAME: mail
-    DEBUG: 'true'
-    DOMAIN: wheretogo.fr
-    ENABLE_CERTBOT: 'True'
-    EXPOSE_ADMIN: 'yes'
-    FETCHMAIL_DELAY: '600'
-    FRONTEND: nginx
-    HOSTNAME: mail.wheretogo.fr
-    LETSENCRYPT_EMAIL: amaurel90@gmail.com
-    LETSENCRYPT_HOST: mail.wheretogo.fr
-    MESSAGE_SIZE_LIMIT: '50000000'
-    POSTMASTER: admin
-    RELAYHOST: '""'
-    RELAYNETS: 172.16.0.0/12
-    ROOT: /home/adrienm/data/mailu
-    SECRET_KEY: 060190adrienmadi
-    VERSION: latest
-    VIRTUAL_HOST: mail.wheretogo.fr
-    VIRTUAL_PORT: '443'
-    VIRTUAL_PROTO: https
-    WEBMAIL: roundcube
-  labels:
-    io.rancher.container.pull_image: always
-  image: mailu/nginx:latest
-  volumes:
-  - /home/adrienm/data/mailu/certs:/certs
-antispam:
-  environment:
-    BIND_ADDRESS: 0.0.0.0
-    COMPOSE_PROJECT_NAME: mail
-    DEBUG: 'true'
-    DOMAIN: wheretogo.fr
-    ENABLE_CERTBOT: 'True'
-    EXPOSE_ADMIN: 'yes'
-    FETCHMAIL_DELAY: '600'
-    FRONTEND: nginx
-    HOSTNAME: mail.wheretogo.fr
-    MESSAGE_SIZE_LIMIT: '50000000'
-    POSTMASTER: admin
-    RELAYHOST: '""'
-    RELAYNETS: 172.16.0.0/12
-    ROOT: /home/adrienm/data/mailu
-    SECRET_KEY: 060190adrienmadi
-    VERSION: latest
-    WEBMAIL: roundcube
-  labels:
-    io.rancher.container.pull_image: always
-  image: mailu/rspamd:latest
-  volumes:
-  - /home/adrienm/data/mailu/filter:/var/lib/rspamd
-admin:
-  ports:
-  - 8000:80/tcp
-  environment:
-    BIND_ADDRESS: 0.0.0.0
-    COMPOSE_PROJECT_NAME: mail
-    DEBUG: 'true'
-    DOMAIN: wheretogo.fr
-    ENABLE_CERTBOT: 'True'
-    EXPOSE_ADMIN: 'yes'
-    FETCHMAIL_DELAY: '600'
-    FRONTEND: nginx
-    HOSTNAME: mail.wheretogo.fr
-    MESSAGE_SIZE_LIMIT: '50000000'
-    POSTMASTER: admin
-    RELAYHOST: '""'
-    RELAYNETS: 172.16.0.0/12
-    ROOT: /home/adrienm/data/mailu
-    SECRET_KEY: 060190adrienmadi
-    VERSION: latest
-    WEBMAIL: roundcube
-  labels:
-    io.rancher.container.pull_image: always
-  image: mailu/admin:latest
-  volumes:
-  - /home/adrienm/data/mailu/data:/data
-  - /home/adrienm/data/mailu/dkim:/dkim
-  - /home/adrienm/data/mailu/certs:/certs
-  - /var/run/docker.sock:/var/run/docker.sock:ro
-milter:
-  environment:
-    BIND_ADDRESS: 0.0.0.0
-    COMPOSE_PROJECT_NAME: mail
-    DEBUG: 'true'
-    DOMAIN: wheretogo.fr
-    ENABLE_CERTBOT: 'True'
-    EXPOSE_ADMIN: 'yes'
-    FETCHMAIL_DELAY: '600'
-    FRONTEND: nginx
-    HOSTNAME: mail.wheretogo.fr
-    MESSAGE_SIZE_LIMIT: '50000000'
-    POSTMASTER: admin
-    RELAYHOST: '""'
-    RELAYNETS: 172.16.0.0/12
-    ROOT: /home/adrienm/data/mailu
-    SECRET_KEY: 060190adrienmadi
-    VERSION: latest
-    WEBMAIL: roundcube
-  labels:
-    io.rancher.container.pull_image: always
-  image: mailu/rmilter:latest
-  volumes:
-  - /home/adrienm/data/mailu/filter:/data
-  - /home/adrienm/data/mailu/dkim:/dkim
-  - /home/adrienm/data/mailu/overrides:/overrides
-fetchmail:
-  environment:
-    BIND_ADDRESS: 0.0.0.0
-    COMPOSE_PROJECT_NAME: mail
-    DEBUG: 'true'
-    DOMAIN: wheretogo.fr
-    ENABLE_CERTBOT: 'True'
-    EXPOSE_ADMIN: 'yes'
-    FETCHMAIL_DELAY: '600'
-    FRONTEND: nginx
-    HOSTNAME: mail.wheretogo.fr
-    MESSAGE_SIZE_LIMIT: '50000000'
-    POSTMASTER: admin
-    RELAYHOST: '""'
-    RELAYNETS: 172.16.0.0/12
-    ROOT: /home/adrienm/data/mailu
-    SECRET_KEY: 060190adrienmadi
-    VERSION: latest
-    WEBMAIL: roundcube
-  labels:
-    io.rancher.container.pull_image: always
-  image: mailu/fetchmail:latest
-  volumes:
-  - /home/adrienm/data/mailu/data:/data
+ http:
+    image: mailu/$FRONTEND:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+     LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+     LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+     VIRTUAL_HOST: ${VIRTUAL_HOST}
+     VIRTUAL_PORT: ${VIRTUAL_PORT}
+     VIRTUAL_PROTO: ${VIRTUAL_PROTO}
+    volumes:
+      - "${ROOT}/certs:/certs"
+ redis:
+    image: redis:${VERSION}
+    labels: io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    restart: always
+    volumes:
+      - "${ROOT}/redis:/data"
+ imap:
+    image: mailu/dovecot:${VERSION}
+    labels: io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    restart: always
+    ports:
+      - "${BIND_ADDRESS}:110:110"
+      - "${BIND_ADDRESS}:143:143"
+      - "${BIND_ADDRESS}:993:993"
+      - "${BIND_ADDRESS}:995:995"
+      - "${BIND_ADDRESS}:4190:4190"
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/mail:/mail"
+      - "${ROOT}/certs:/certs"
+      - "${ROOT}/overrides:/overrides"
+ smtp:
+    image: mailu/postfix:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    ports:
+      - "${BIND_ADDRESS}:25:25"
+      - "${BIND_ADDRESS}:465:465"
+      - "${BIND_ADDRESS}:587:587"
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/certs:/certs"
+      - "${ROOT}/overrides:/overrides"
+ milter:
+    image: mailu/rmilter:${VERSION}
+    labels: io.rancher.container.pull_image: always
+    restart: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/filter:/data"
+      - "${ROOT}/dkim:/dkim"
+      - "${ROOT}/overrides:/overrides"
+ antispam:
+    image: mailu/rspamd:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/filter:/var/lib/rspamd"
+ antivirus:
+    image: mailu/clamav:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/filter:/data"
+ admin:
+    image: mailu/admin:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    ports:
+      - "127.0.0.1:8000:80"
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/dkim:/dkim"
+      - "${ROOT}/certs:/certs"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+ webmail:
+    image: "mailu/${WEBMAIL}:${VERSION}"
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/webmail:/data"
+ fetchmail:
+    image: mailu/fetchmail:${VERSION}
+    restart: always
+    labels: io.rancher.container.pull_image: always
+    environment:
+     BIND_ADDRESS: ${BIND_ADDRESS}
+     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+     DEBUG: ${DEBUG}
+     DOMAIN: ${DOMAIN}
+     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
+     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
+     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+     FRONTEND: ${FRONTEND}
+     HOSTNAME: ${HOSTNAME}
+     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+     POSTMASTER: ${POSTMASTER}
+     RELAYHOST: ${RELAYHOST}
+     RELAYNETS: ${RELAYNETS}
+     ROOT: ${ROOT}
+     SECRET_KEY: ${SECRET_KEY}
+     VERSION: ${VERSION}
+     WEBMAIL: ${WEBMAIL}
+    volumes:
+      - "${ROOT}/data:/data"
