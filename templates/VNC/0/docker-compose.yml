@@ -1,8 +1,8 @@
 VNCServer: 
  ports: 
-   - 5901:5901/tcp 
+   - $(PORT):5901/tcp 
  environment: 
-   VNC_PW: '060190' 
+   VNC_PW: $(PASS) 
  labels:
    io.rancher.container.pull_image: always 
  tty: true 
