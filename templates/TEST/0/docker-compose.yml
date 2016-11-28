@@ -2,7 +2,6 @@
     image: mailu/$FRONTEND:${VERSION}
     restart: always
     labels: io.rancher.container.pull_image: always
-    env_file: answers.txt
     environment:
       - VIRTUAL_HOST: ${VIRTUAL_HOST}
       - VIRTUAL_PORT: ${VIRTUAL_PORT}
