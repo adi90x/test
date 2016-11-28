@@ -1,7 +1,8 @@
  http:
     image: mailu/$FRONTEND:${VERSION}
-    #restart: always
-    labels: io.rancher.container.pull_image: always
+    restart: always
+    labels: 
+     io.rancher.container.pull_image: always
     environment:
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
