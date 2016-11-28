@@ -11,4 +11,4 @@ VNCServer:
   - variable: PASS
     label: "VNC Serveur password"
     default: 060190
-    type: int
+    type: password
