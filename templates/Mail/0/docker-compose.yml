@@ -1,4 +1,4 @@
-http:
+ http:
     # build: $FRONTEND
     image: mailu/$FRONTEND:${VERSION}
     restart: always
@@ -13,14 +13,14 @@ http:
     volumes:
       - "${ROOT}/certs:/certs"
 
-redis:
+ redis:
     image: redis:${VERSION}
     labels: io.rancher.container.pull_image: always
     restart: always
     volumes:
       - "${ROOT}/redis:/data"
 
-imap:
+ imap:
     # build: dovecot
     image: mailu/dovecot:${VERSION}
     labels: io.rancher.container.pull_image: always
@@ -38,7 +38,7 @@ imap:
       - "${ROOT}/certs:/certs"
       - "${ROOT}/overrides:/overrides"
 
-smtp:
+ smtp:
     # build: postfix
     image: mailu/postfix:${VERSION}
     restart: always
@@ -53,7 +53,7 @@ smtp:
       - "${ROOT}/certs:/certs"
       - "${ROOT}/overrides:/overrides"
 
-milter:
+ milter:
     # build: rmilter
     image: mailu/rmilter:${VERSION}
     restart: always
@@ -63,7 +63,7 @@ milter:
       - "${ROOT}/dkim:/dkim"
       - "${ROOT}/overrides:/overrides"
 
-antispam:
+ antispam:
     # build: rspamd
     image: mailu/rspamd:${VERSION}
     restart: always
@@ -72,7 +72,7 @@ antispam:
     volumes:
       - "${ROOT}/filter:/var/lib/rspamd"
 
-antivirus:
+ antivirus:
     # build: clamav
     image: mailu/clamav:${VERSION}
     restart: always
@@ -81,7 +81,7 @@ antivirus:
     volumes:
       - "${ROOT}/filter:/data"
 
-admin:
+ admin:
     # build: admin
     image: mailu/admin:${VERSION}
     restart: always
@@ -95,7 +95,7 @@ admin:
       - "${ROOT}/certs:/certs"
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-webmail:
+ webmail:
     # build: "${WEBMAIL}"
     image: "mailu/${WEBMAIL}:${VERSION}"
     restart: always
@@ -104,7 +104,7 @@ webmail:
     volumes:
       - "${ROOT}/webmail:/data"
 
-fetchmail:
+ fetchmail:
     # build: fetchmail
     image: mailu/fetchmail:${VERSION}
     restart: always
