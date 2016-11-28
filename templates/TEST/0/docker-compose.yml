@@ -3,10 +3,6 @@
     restart: always
     labels: io.rancher.container.pull_image: always
     environment:
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
-      VIRTUAL_PORT: ${VIRTUAL_PORT}
-      VIRTUAL_PROTO: ${VIRTUAL_PROTO}
-      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
       LETSENCRYPT_EMAIL: ${LE_MAIL}
     volumes:
       "${ROOT}/certs:/certs"

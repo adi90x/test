@@ -4,8 +4,13 @@ http:
  name: "Version Initial"
  version: "0.0.1"
  questions:
-  - variable: VIRTUAL_HOST
+  - variable: ROOT
     label: "Mail Server Virtual Host"
     default: "mail.wheretogo.fr"
     required: "true"
     type: string
+  - variable: LE_MAIL
+    label: "Mail Server Virtual Host"
+    default: "mail.wheretogo.fr"
+    required: "true"
+    type: string	
