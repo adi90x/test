@@ -6,7 +6,7 @@ RecupClientConfig:
   scale: 1
 .catalog:
  name: "Version Initial"
- version: "0.0.1"
+ version: "v0.0.1"
  questions:
   - variable: PORT
     label: "VPN Serveur listening port"
