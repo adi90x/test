@@ -1,6 +1,7 @@
-name: "Version Initial"
-version: "v0.0.1"
-.catalog:
+version: '2'
+ name: "Version Initial"
+ version: "v0.0.1"
+ catalog:
   questions:
     - variable: DEFAULT_HOST
       label: "Default Virtual Host"
