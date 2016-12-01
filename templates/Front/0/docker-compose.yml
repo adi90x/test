@@ -2,8 +2,8 @@ version: '2'
 services:
  Proxy:
   ports:
-  - 80:80/tcp
-  - 443:443/tcp
+    - 80:80/tcp
+    - 443:443/tcp
   environment:
     DEFAULT_HOST: ${DEFAULT_HOST}
   network_mode: bridge    
@@ -13,19 +13,19 @@ services:
   tty: true
   image: jwilder/nginx-proxy
   volumes:
-  - /usr/share/nginx/html
-  - ${PATH}/htpasswd:/etc/nginx/htpasswd
-  - ${PATH}/vhost.d:/etc/nginx/vhost.d:ro
-  - /var/run/docker.sock:/tmp/docker.sock:ro
-  - ${PATH}/certs:/etc/nginx/certs:ro
+    - /usr/share/nginx/html
+    - ${PATH}/htpasswd:/etc/nginx/htpasswd
+    - ${PATH}/vhost.d:/etc/nginx/vhost.d:ro
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+    - ${PATH}/certs:/etc/nginx/certs:ro
  Letsencrypt:
   labels:
     io.rancher.container.pull_image: always
   tty: true
   image: jrcs/letsencrypt-nginx-proxy-companion
   volumes:
-  - ${PATH}/vhost.d:/etc/nginx/vhost.d:rw
-  - ${PATH}/certs:/etc/nginx/certs:rw
-  - /var/run/docker.sock:/var/run/docker.sock
+    - ${PATH}/vhost.d:/etc/nginx/vhost.d:rw
+    - ${PATH}/certs:/etc/nginx/certs:rw
+    - /var/run/docker.sock:/var/run/docker.sock
   volumes_from:
-  - Proxy
+    - Proxy
