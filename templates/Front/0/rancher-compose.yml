@@ -1,13 +1,13 @@
-version: '2' 
-catalog:
+version: '2'
 name: "Version Initial"
 version: "v0.0.1"
-questions:
-  - variable: DEFAULT_HOST
-    label: "Default Virtual Host"
-    default: wheretogo.fr
-    type: string
-  - variable: PATH
-    label: "Host Path for config files"
-    default: "/home/adrienm/data"
-    type: string 
+.catalog:
+  questions:
+    - variable: DEFAULT_HOST
+      label: "Default Virtual Host"
+      default: wheretogo.fr
+      type: string
+    - variable: PATH
+      label: "Host Path for config files"
+      default: "/home/adrienm/data"
+      type: string  
