@@ -1,4 +1,4 @@
-version: '2'
+
 name: "Version Initial"
 version: "v0.0.1"
 .catalog:
@@ -10,4 +10,4 @@ version: "v0.0.1"
     - variable: PATH
       label: "Host Path for config files"
       default: "/home/adrienm/data"
-      type: string  
+      type: string
