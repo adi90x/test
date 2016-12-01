@@ -1,4 +1,6 @@
-Proxy:
+version: '2'
+services:
+ Proxy:
   ports:
   - 80:80/tcp
   - 443:443/tcp
@@ -16,7 +18,7 @@ Proxy:
   - ${PATH}/vhost.d:/etc/nginx/vhost.d:ro
   - /var/run/docker.sock:/tmp/docker.sock:ro
   - ${PATH}/certs:/etc/nginx/certs:ro
-Letsencrypt:
+ Letsencrypt:
   labels:
     io.rancher.container.pull_image: always
   tty: true
