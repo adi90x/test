@@ -19,8 +19,9 @@ milter:
 fetchmail:
   scale: 1
 .catalog:
- name: "Version Initial"
- version: "v0.0.1"
+ minimun_rancher_version: 1.2.0
+ name: "Support Compose v2"
+ version: "v0.0.2"
  questions:
   - variable: VIRTUAL_HOST
     label: "Mail Server Virtual Host"
