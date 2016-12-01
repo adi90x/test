@@ -4,6 +4,7 @@ Proxy:
   - 443:443/tcp
   environment:
     DEFAULT_HOST: ${DEFAULT_HOST}
+  network_mode: bridge    
   labels:
     io.rancher.sidekicks: Letsencrypt
     io.rancher.container.pull_image: always
