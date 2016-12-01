@@ -1,12 +1,8 @@
 version: '2' 
- Proxy:
-  scale: 1
- Letsencrypt:
-  scale: 1
- .catalog:
- name: "Version Initial"
- version: "v0.0.1"
- questions:
+.catalog:
+name: "Version Initial"
+version: "v0.0.1"
+questions:
   - variable: DEFAULT_HOST
     label: "Default Virtual Host"
     default: wheretogo.fr
