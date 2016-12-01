@@ -1,6 +1,6 @@
 name: Nginx Proxy
 description: "Setup Nginx Proxy for virtual host and auto Let\'s encrypt"
-version: 0
+version: v0.0.1
 category: Perso
 maintainer: AdrienM
 license: MIT
