@@ -4,7 +4,7 @@ Portainer:
   scale: 1
 .catalog:
  name: "Version Initial"
- version: "0.0.1"
+ version: "v0.0.1"
  questions:
   - variable: DOCKERUI_HOST
     label: "DockerUI virtual host"
