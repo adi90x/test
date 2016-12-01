@@ -1,8 +1,9 @@
-Proxy:
+version: '2' 
+ Proxy:
   scale: 1
-Letsencrypt:
+ Letsencrypt:
   scale: 1
-.catalog:
+ .catalog:
  name: "Version Initial"
  version: "v0.0.1"
  questions:
