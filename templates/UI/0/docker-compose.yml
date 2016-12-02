@@ -8,7 +8,6 @@
     io.rancher.container.pull_image: always
   tty: true
   image: uifd/ui-for-docker
-  network_mode: bridge
   privileged: true
   volumes:
   - /var/run/docker.sock:/var/run/docker.sock
