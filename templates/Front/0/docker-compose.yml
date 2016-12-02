@@ -2,7 +2,6 @@
     image: jwilder/nginx-proxy
     environment:
       DEFAULT_HOST: ${DEFAULT_HOST}
-    network_mode: bridge
     volumes:
     - /usr/share/nginx/html
     - ${PATH}/htpasswd:/etc/nginx/htpasswd
