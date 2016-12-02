@@ -3,6 +3,7 @@ services:
  http:
     image: mailu/$FRONTEND:${VERSION}
     restart: always
+    network_mode: bridge
     labels: 
      io.rancher.container.pull_image: always
     environment:
