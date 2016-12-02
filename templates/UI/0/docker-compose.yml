@@ -15,9 +15,9 @@
   net: bridge
  Portainer:
   environment:
-    VIRTUAL_HOST: ${DOCKERUI_HOST}
+    VIRTUAL_HOST: ${PORTAINER_HOST}
     VIRTUAL_PORT: '9000'
-    LETSENCRYPT_HOST: ${DOCKERUI_HOST}
+    LETSENCRYPT_HOST: ${PORTAINER_HOST}
     LETSENCRYPT_EMAIL: ${LE_EMAIL}
   labels:
     io.rancher.container.pull_image: always
