@@ -15,7 +15,7 @@ services:
   volumes:
     - /usr/share/nginx/html
     - ${PATH}/htpasswd:/etc/nginx/htpasswd
-    - ${PATH}/vhost.d:/etc/nginx/vhost.d:ro
+    - ${PATH}/vhost.d:/etc/nginx/vhost.d
     - /var/run/docker.sock:/tmp/docker.sock:ro
     - ${PATH}/certs:/etc/nginx/certs:ro
  Letsencrypt:
