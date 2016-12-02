@@ -1,4 +1,6 @@
-DockerUI:
+version: '2'
+services:
+ DockerUI:
   environment:
     VIRTUAL_HOST: ${DOCKERUI_HOST}
     VIRTUAL_PORT: '9000'
@@ -14,7 +16,7 @@ DockerUI:
   - /var/run/docker.sock:/var/run/docker.sock
   - /data
   net: bridge
-Portainer:
+ Portainer:
   environment:
     VIRTUAL_HOST: ${DOCKERUI_HOST}
     VIRTUAL_PORT: '9000'
