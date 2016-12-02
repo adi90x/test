@@ -10,7 +10,6 @@ services:
     io.rancher.sidekicks: Letsencrypt
     io.rancher.container.pull_image: always
   tty: true
-  network_mode: bridge
   image: jwilder/nginx-proxy
   volumes:
     - /usr/share/nginx/html
