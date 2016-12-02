@@ -1,5 +1,3 @@
-version: '2'
-services:
   Proxy:
     image: jwilder/nginx-proxy
     environment:
