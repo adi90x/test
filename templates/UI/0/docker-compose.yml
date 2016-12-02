@@ -24,6 +24,7 @@ Portainer:
     io.rancher.container.pull_image: always
   tty: true
   image: portainer/portainer
+  network_mode: bridge
   volumes:
   - /var/run/docker.sock:/var/run/docker.sock
   net: bridge
