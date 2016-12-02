@@ -1,5 +1,3 @@
-version: '2'
-services:
  Proxy:
   ports:
     - 80:80/tcp
