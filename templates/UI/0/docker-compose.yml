@@ -15,7 +15,6 @@ services:
   volumes:
   - /var/run/docker.sock:/var/run/docker.sock
   - /data
-  net: bridge
  Portainer:
   environment:
     VIRTUAL_HOST: ${DOCKERUI_HOST}
@@ -29,4 +28,3 @@ services:
   network_mode: bridge
   volumes:
   - /var/run/docker.sock:/var/run/docker.sock
-  net: bridge
