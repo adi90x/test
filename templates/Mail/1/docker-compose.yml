@@ -7,6 +7,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -37,6 +38,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -63,6 +65,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -99,6 +102,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -131,6 +135,7 @@ services:
      io.rancher.container.pull_image: always
     restart: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -159,6 +164,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -185,6 +191,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -211,6 +218,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -242,6 +250,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -268,6 +277,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
@@ -294,6 +304,7 @@ services:
     labels: 
      io.rancher.container.pull_image: always
     environment:
+     FETCHMAIL_KEEP: ${FETCHMAIL_KEEP}
      BIND_ADDRESS: ${BIND_ADDRESS}
      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
      DEBUG: ${DEBUG}
