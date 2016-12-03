@@ -19,6 +19,6 @@
     - variable: "KEEP"
       label: "Keep images"
       description: "A comma separated list of images that should never be removed"
-      default: "rancher/agent:v0.8.2,rancher/agent-instance:v0.6.0"
+      default: ""
       required: false
       type: "string"
