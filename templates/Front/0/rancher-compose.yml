@@ -8,5 +8,5 @@
       type: string
     - variable: PATH
       label: "Host Path for config files"
-      default: "/home/adrienm/data"
+      default: "/home/adrienm/data/nginx"
       type: string
