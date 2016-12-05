@@ -1,0 +1,47 @@
+version: '2'
+services:
+  Letsencrypt3:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes:
+    - /home/adrienm/data/vhost.d:/etc/nginx/vhost.d:rw
+    - /home/adrienm/data/certs:/etc/nginx/certs:rw
+    - /var/run/docker.sock:/var/run/docker.sock
+    tty: true
+    volumes_from:
+    - Proxy3
+    labels:
+      io.rancher.container.pull_image: always
+  Proxy3:
+    image: nginx
+    environment:
+      DEFAULT_HOST: wheretogo.fr
+    volumes:
+    - /usr/share/nginx/html
+    - /home/adrienm/data/nginx/htpasswd:/etc/nginx/htpasswd
+    - /home/adrienm/data/nginx/vhost.d:/etc/nginx/vhost.d
+    - /home/adrienm/data/nginx/certs:/etc/nginx/certs:ro
+    - /home/adrienm/data/nginx/conf.d:/etc/nginx/conf.d
+    tty: true
+    ports:
+    - 443:443/tcp
+    - 80:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: Letsencrypt3,DockerGen2
+  DockerGen2:
+    image: jwilder/docker-gen
+    volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+    - /home/adrienm/data/nginx/templates:/etc/docker-gen/templates
+    tty: true
+    volumes_from:
+    - Proxy3
+    command:
+    - -notify-sighup
+    - Proxy3
+    - -watch
+    - -only-exposed
+    - /etc/docker-gen/templates/nginx.tmpl
+    - /etc/nginx/conf.d/default.conf
+    labels:
+      io.rancher.container.pull_image: always
