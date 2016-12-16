@@ -13,13 +13,12 @@
   - /data
   net: bridge
  Portainer:
-  environment:
-    VIRTUAL_HOST: ${PORTAINER_HOST}
-    VIRTUAL_PORT: '9000'
-    LETSENCRYPT_HOST: ${PORTAINER_HOST}
-    LETSENCRYPT_EMAIL: ${LE_EMAIL}
   labels:
     io.rancher.container.pull_image: always
+    rap.port: '9000'
+    rap.le_host: ${PORTAINER_HOST}
+    rap.le_mail: ${LE_EMAIL}
+    rap.host: ${PORTAINER_HOST}
   tty: true
   image: portainer/portainer
   net: bridge
