@@ -1,28 +1,21 @@
+version: '2'
+services:
   Proxy:
-    image: jwilder/nginx-proxy
+    image: adi90x/rancher-active-proxy:dev
     environment:
-      DEFAULT_HOST: ${DEFAULT_HOST}
+      DEFAULT_HOST: $(DEFAULT_HOST)
+      DEFAULT_EMAIL: $(DEFAULT_EMAIL)
+    stdin_open: true
     volumes:
-    - /usr/share/nginx/html
-    - ${PATH}/htpasswd:/etc/nginx/htpasswd
-    - ${PATH}/vhost.d:/etc/nginx/vhost.d
-    - /var/run/docker.sock:/tmp/docker.sock:ro
-    - ${PATH}/certs:/etc/nginx/certs:ro
-    tty: true
-    ports:
-    - 443:443/tcp
-    - 80:80/tcp
-    labels:
-      io.rancher.sidekicks: Letsencrypt
-      io.rancher.container.pull_image: always
-  Letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes:
-    - ${PATH}/vhost.d:/etc/nginx/vhost.d:rw
-    - ${PATH}/certs:/etc/nginx/certs:rw
+    - $(PATH)/html:/usr/share/nginx/html
+    - $(PATH)/certs:/etc/nginx/certs
+    - $(PATH)/htpasswd:/etc/nginx/htpasswd
+    - $(PATH)/vhost.d:/etc/nginx/vhost.d
+    - $(PATH)/conf.d:/etc/nginx/conf.d
     - /var/run/docker.sock:/var/run/docker.sock
     tty: true
-    volumes_from:
-    - Proxy
+    ports:
+    - 80:80/tcp
+    - 443:443/tcp
     labels:
       io.rancher.container.pull_image: always
