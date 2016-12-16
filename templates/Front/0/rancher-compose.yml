@@ -10,3 +10,7 @@
       label: "Host Path for config files"
       default: "/home/adrienm/data/nginx"
       type: string
+    - variable: EMAIL
+      label: "Default Email for Letsencrypt"
+      default: "amaurel90@gmail.com"
+      type: string
