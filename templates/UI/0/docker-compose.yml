@@ -1,11 +1,10 @@
  DockerUI:
-  environment:
-    VIRTUAL_HOST: ${DOCKERUI_HOST}
-    VIRTUAL_PORT: '9000'
-    LETSENCRYPT_HOST: ${DOCKERUI_HOST}
-    LETSENCRYPT_EMAIL: ${LE_EMAIL}
   labels:
     io.rancher.container.pull_image: always
+    rap.port: '9000'
+    rap.le_host: ${DOCKERUI_HOST}
+    rap.le_mail: ${LE_EMAIL}
+    rap.host: ${DOCKERUI_HOST}
   tty: true
   image: uifd/ui-for-docker
   privileged: true
