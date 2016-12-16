@@ -29,6 +29,13 @@
      WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/certs:/certs"
+    labels:
+      rap.port: '443'
+      rap.le_host: "mail.wheretogo.fr"
+      rap.le_mail: "amaurel90@gmail.com"
+      io.rancher.container.pull_image: always
+      rap.host: "mail.wheretogo.fr"
+      rap.proto: https  
  redis:
     image: redis:${VERSION}
     labels: 
