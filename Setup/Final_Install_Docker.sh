@@ -74,7 +74,7 @@ docker run --volumes-from ovpn-data --rm kylemanna/openvpn ovpn_getclient Adrien
 #Installation WatchTower pour verifier que tt est update
 docker run  -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock centurylink/watchtower -i 3600
 #Lancement Rancher
-docker run -d -v /home/adrienm/data/rancher/:/var/lib/mysql --restart=unless-stopped -p 8080:8080 --name=rancher-server -e VIRTUAL_HOST=ad.wheretogo.fr -e VIRTUAL_PORT=8080 -e LETSENCRYPT_HOST=ad.wheretogo.fr -e LETSENCRYPT_EMAIL=amaurel90@gmail.com rancher/server
+docker run -d -v /home/adrienm/data/rancher/:/var/lib/mysql --restart=unless-stopped -p 8080:8080 --name=rancher-server -l rap.host=ad.wheretogo.fr -l rap.port=8080 -l rap.le_host=ad.wheretogo.fr -l  rap.le_email=amaurel90@gmail.com rancher/server
 #Docker Cheats
 #docker rm -f $(docker ps -a -q)
 #docker rmi $(docker images -q)
