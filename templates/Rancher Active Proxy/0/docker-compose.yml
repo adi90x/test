@@ -1,18 +1,17 @@
 version: '2'
 services:
-  Proxy:
-    image: adi90x/rancher-active-proxy:dev
+  Rancher-Active-Proxy:
+    image: adi90x/rancher-active-proxy
     environment:
       DEFAULT_HOST: $(DEFAULT_HOST)
       DEFAULT_EMAIL: $(DEFAULT_EMAIL)
+      CRON: $(CRON)
+      DEBUG: $(DEBUG)
     stdin_open: true
     volumes:
-    - $(PATH)/html:/usr/share/nginx/html
-    - $(PATH)/certs:/etc/nginx/certs
     - $(PATH)/htpasswd:/etc/nginx/htpasswd
     - $(PATH)/vhost.d:/etc/nginx/vhost.d
-    - $(PATH)/conf.d:/etc/nginx/conf.d
-    - /var/run/docker.sock:/var/run/docker.sock
+    - $(PATH)/letsencrypt:/etc/letsencrypt
     tty: true
     ports:
     - 80:80/tcp

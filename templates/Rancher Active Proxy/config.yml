@@ -1,7 +1,7 @@
-name: Nginx Proxy
-description: "Setup Nginx Proxy for virtual host and auto Let\'s encrypt"
+name: Rancher Active Proxy
+description: "Automatic Active Proxy for Rancher with Let's Encrypt support"
 version: "v0.0.1"
-category: Perso
+category: Proxy
 maintainer: AdrienM
 license: MIT
-projectURl: "https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion"
+projectURl: "https://github.com/adi90x/rancher-active-proxy"

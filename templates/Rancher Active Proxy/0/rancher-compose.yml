@@ -1,16 +1,23 @@
 .catalog:
- name: "Version Initial"
+ name: "Initial Version"
  version: "v0.0.1"
- questions:
-    - variable: DEFAULT_HOST
-      label: "Default Virtual Host"
-      default: wheretogo.fr
-      type: string
+ questions:    
     - variable: PATH
-      label: "Host Path for config files"
-      default: "/home/adrienm/data/nginx"
+      label: "Path to save config on host"
+      default: "/data/rancher-active-proxy"
+      type: string
+    - variable: DEFAULT_HOST
+      label: "Default Virtual Host to use"
       type: string
     - variable: EMAIL
-      label: "Default Email for Letsencrypt"
-      default: "amaurel90@gmail.com"
+      label: "Default Email to use for Letsencrypt"
+      default: "foo@bar.com"
+      type: string
+    - variable: CRON
+      label: "Auto renew cron like setup"
+      default: "0 2 * * *"
+      type: string
+    - variable: DEBUG
+      label: "Set to true to enable debug"
+      default: "False"
       type: string
