@@ -11,7 +11,7 @@
       type: string
     - variable: EMAIL
       label: "Default Email to use for Letsencrypt"
-      default: "foo@bar.com"
+      default: "amaurel90@gmail.com"
       type: string
     - variable: CRON
       label: "Auto renew cron like setup"
