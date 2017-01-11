@@ -3,7 +3,7 @@ services:
   wordpress:
     image: wordpress
     environment:
-      WORDPRESS_DB_PASSWORD: '060190'
+      WORDPRESS_DB_PASSWORD: ${DB_PASS}
     volumes:
     - ${PATH}/wp-content/:/var/www/html/wp-content
     ports:
@@ -13,6 +13,6 @@ services:
   mysql:
     image: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: '060190'
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
     volumes:
     - ${PATH}/mysql:/var/lib/mysql
