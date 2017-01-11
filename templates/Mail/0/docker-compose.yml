@@ -25,12 +25,12 @@
     volumes:
       - "${ROOT}/certs:/certs"
     labels:
-      rap.port: '443'
-      rap.le_host: "mail.wheretogo.fr,mail.menjuc.com"
-      rap.le_mail: "amaurel90@gmail.com"
+      rap.port: ${VIRTUAL_PORT}
+      rap.le_host: ${VIRTUAL_HOST}
+      rap.le_mail: ${LETSENCRYPT_EMAIL}
       io.rancher.container.pull_image: always
-      rap.host: "mail.wheretogo.fr,mail.menjuc.com"
-      rap.proto: https  
+      rap.host: ${VIRTUAL_HOST}
+      rap.proto: ${VIRTUAL_PROTO} 
  redis:
     image: redis:${VERSION}
     labels: 
