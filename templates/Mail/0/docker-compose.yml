@@ -21,20 +21,15 @@
      SECRET_KEY: ${SECRET_KEY}
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
-     LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-     LETSENCRYPT_HOST: ${VIRTUAL_HOST}
-     VIRTUAL_HOST: ${VIRTUAL_HOST}
-     VIRTUAL_PORT: ${VIRTUAL_PORT}
-     VIRTUAL_PROTO: ${VIRTUAL_PROTO}
      WEBDAV: ${WEBDAV}
     volumes:
       - "${ROOT}/certs:/certs"
     labels:
       rap.port: '443'
-      rap.le_host: "mail.wheretogo.fr"
+      rap.le_host: "mail.wheretogo.fr,mail.menjuc.com"
       rap.le_mail: "amaurel90@gmail.com"
       io.rancher.container.pull_image: always
-      rap.host: "mail.wheretogo.fr"
+      rap.host: "mail.wheretogo.fr,mail.menjuc.com"
       rap.proto: https  
  redis:
     image: redis:${VERSION}
