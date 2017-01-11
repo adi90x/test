@@ -25,7 +25,7 @@ fetchmail:
   - variable: VIRTUAL_HOST
     label: "Mail Server Virtual Host"
     description: "Use by jwilder/nginx to setup virtual host name and let's encrypt to provide certificate"
-    default: "mail.wheretogo.fr"
+    default: "mail.wheretogo.fr,mail.menjuc.com"
     required: true
     type: string
   - variable: VIRTUAL_PORT
