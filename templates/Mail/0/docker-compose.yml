@@ -22,6 +22,7 @@
      VERSION: ${VERSION}
      WEBMAIL: ${WEBMAIL}
      WEBDAV: ${WEBDAV}
+     NGINX_SSL_DHPARAM_BITS: ${NGINX_SSL_DHPARAM_BITS}
     volumes:
       - "${ROOT}/certs:/certs"
     labels:
