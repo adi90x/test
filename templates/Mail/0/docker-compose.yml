@@ -24,7 +24,8 @@
      WEBDAV: ${WEBDAV}
      NGINX_SSL_DHPARAM_BITS: ${NGINX_SSL_DHPARAM_BITS}
     volumes:
-      - "${ROOT}/certs:/certs"
+      - "${CERTKEY}:/certs/cert.pem"
+      - "${PRIVKEY}:/certs/key.pem"
     labels:
       rap.port: ${VIRTUAL_PORT}
       rap.le_host: ${VIRTUAL_HOST}
@@ -91,7 +92,8 @@
     volumes:
       - "${ROOT}/data:/data"
       - "${ROOT}/mail:/mail"
-      - "${ROOT}/certs:/certs"
+      - "${CERTKEY}:/certs/cert.pem"
+      - "${PRIVKEY}:/certs/key.pem"
       - "${ROOT}/overrides:/overrides"
  smtp:
     image: mailu/postfix:${VERSION}
@@ -123,7 +125,8 @@
       - "${BIND_ADDRESS}:587:587"
     volumes:
       - "${ROOT}/data:/data"
-      - "${ROOT}/certs:/certs"
+      - "${CERTKEY}:/certs/cert.pem"
+      - "${PRIVKEY}:/certs/key.pem"
       - "${ROOT}/overrides:/overrides"
  milter:
     image: mailu/rmilter:${VERSION}
@@ -232,7 +235,8 @@
     volumes:
       - "${ROOT}/data:/data"
       - "${ROOT}/dkim:/dkim"
-      - "${ROOT}/certs:/certs"
+      - "${CERTKEY}:/certs/cert.pem"
+      - "${PRIVKEY}:/certs/key.pem"
       - /var/run/docker.sock:/var/run/docker.sock:ro
  webmail:
     image: "mailu/${WEBMAIL}:${VERSION}"
