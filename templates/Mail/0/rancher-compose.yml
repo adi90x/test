@@ -51,6 +51,18 @@ fetchmail:
     default: "/home/adrienm/data/mailu"
     required: true
     type: string
+  - variable: PRIVKEY
+    label: "Private Key Path"
+    description: "Set this to the path where Maiu can find SSL private Key"
+    default: "/home/adrienm/data/nginx/letsencrypt/live/mail.wheretogo.fr/privkey.pem"
+    required: true
+    type: string
+  - variable: CERTKEY
+    label: "Cert Path"
+    description: "Set this to the path where Maiu can find SSL Cert Key"
+    default: "/home/adrienm/data/nginx/letsencrypt/live/mail.wheretogo.fr/fullchain.pem"
+    required: true
+    type: string
   - variable: VERSION
     label: "Mailu Version"
     description: "Mailu version to run (stable, 1.0, 1.1, etc. or latest)"
