@@ -1,0 +1,9 @@
+VNCServer: 
+ ports: 
+   - ${PORT}:5901/tcp 
+ environment: 
+   VNC_PW: ${PASS}
+ labels:
+   io.rancher.container.pull_image: always 
+ tty: true 
+ image: consol/ubuntu-xfce-vnc 

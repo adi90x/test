@@ -79,5 +79,3 @@ docker run -d -v /home/adrienm/data/rancher/:/var/lib/mysql --restart=unless-sto
 #docker rm -f $(docker ps -a -q)
 #docker rmi $(docker images -q)
 #docker volume ls -qf dangling=true | xargs -r docker volume rm
-
-
