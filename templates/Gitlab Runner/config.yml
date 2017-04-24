@@ -1,5 +1,5 @@
-name: VNC Serveur
-description: Create a virtual Desktop
+name: Gitlab Runner
+description: Create a gitlab runner to build repo via gitlab-ci
 version: v0.0.1
 category: Perso
 maintainer: AdrienM
