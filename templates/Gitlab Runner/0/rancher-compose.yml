@@ -3,12 +3,8 @@ VNCServer:
 .catalog:
  name: "Version Initial"
  version: "v0.0.1"
- questions:
-  - variable: PORT
-    label: "VNC Serveur listening port"
-    default: 5901
-    type: int
-  - variable: PASS
-    label: "VNC Serveur password"
-    default: "060190"
-    type: password
+ questions:    
+    - variable: HOST_PATH
+      label: "Path to save config on host"
+      default: "/home/adrienm/data/gitlab-runner"
+      type: string
