@@ -4,7 +4,7 @@ GitlabRunner:
     stdin_open: true
     network_mode: host
     volumes:
-    - ${HOST_PATH}/gitlab-runner:/etc/gitlab-runner
+    - ${HOST_PATH}:/etc/gitlab-runner
     - /var/run/docker.sock:/var/run/docker.sock
     tty: true
     pid: host
