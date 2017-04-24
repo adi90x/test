@@ -1,9 +1,12 @@
-VNCServer: 
- ports: 
-   - ${PORT}:5901/tcp 
- environment: 
-   VNC_PW: ${PASS}
- labels:
-   io.rancher.container.pull_image: always 
- tty: true 
- image: consol/ubuntu-xfce-vnc 
+GitlabRunner:
+    privileged: true
+    image: gitlab/gitlab-runner:latest
+    stdin_open: true
+    network_mode: host
+    volumes:
+    - ${HOST_PATH}/gitlab-runner:/etc/gitlab-runner
+    - /var/run/docker.sock:/var/run/docker.sock
+    tty: true
+    pid: host
+    labels:
+      io.rancher.container.pull_image: always
