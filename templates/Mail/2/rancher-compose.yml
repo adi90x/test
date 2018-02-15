@@ -105,8 +105,9 @@ fetchmail:
     required: true
     type: string
   - variable: DISABLE_STATISTICS
-    label: "Statistics Opt Out"
+    label: "Authentication Limit"
     description: "Opt-out of statistics, replace with "True" to opt out"
+    required: true
     default: "True"
     type: string
   - variable: ADMIN
