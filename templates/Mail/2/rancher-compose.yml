@@ -51,12 +51,6 @@ fetchmail:
     default: "master"
     required: true
     type: string
-  - variable: SECRET_KEY
-    label: "Mailu Secret Key"
-    description: "Set to a randomly generated 16 bytes string"
-    default: "060190adrienmadi"
-    required: true
-    type: string
   - variable: BIND_ADDRESS4
     label: "Mailu bind address ipv4"
     description: "Address where listening ports should bind"
@@ -67,6 +61,12 @@ fetchmail:
     label: "Mailu bind address ipv6"
     description: "Address where listening ports should bind"
     default: "::1"
+    required: true
+    type: string
+  - variable: SECRET_KEY
+    label: "Mailu Secret Key"
+    description: "Set to a randomly generated 16 bytes string"
+    default: "060190adrienmadi"
     required: true
     type: string
   - variable: DOMAIN
