@@ -49,7 +49,7 @@ services:
   smtp:
     image: mailu/postfix:${VERSION}
     restart: always
-        volumes:
+    volumes:
       - "${ROOT}/data:/data"
       - "${ROOT}/overrides:/overrides"
     depends_on:
@@ -58,7 +58,7 @@ services:
   antispam:
     image: mailu/rspamd:${VERSION}
     restart: always
-        volumes:
+    volumes:
       - "${ROOT}/filter:/var/lib/rspamd"
       - "${ROOT}/dkim:/dkim"
       - "${ROOT}/overrides/rspamd:/etc/rspamd/override.d"
@@ -68,19 +68,19 @@ services:
   antivirus:
     image: mailu/${ANTIVIRUS}:${VERSION}
     restart: always
-        volumes:
+    volumes:
       - "${ROOT}/filter:/data"
 
   webdav:
     image: mailu/${WEBDAV}:${VERSION}
     restart: always
-        volumes:
+    volumes:
       - "${ROOT}/dav:/data"
 
   admin:
     image: mailu/admin:${VERSION}
     restart: always
-        volumes:
+    volumes:
       - "${ROOT}/data:/data"
       - "${ROOT}/dkim:/dkim"
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -90,11 +90,11 @@ services:
   webmail:
     image: "mailu/${WEBMAIL}:${VERSION}"
     restart: always
-        volumes:
+    volumes:
       - "${ROOT}/webmail:/data"
 
   fetchmail:
     image: mailu/fetchmail:${VERSION}
     restart: always
-        volumes:
+    volumes:
       - "${ROOT}/data:/data"
