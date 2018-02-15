@@ -201,8 +201,7 @@ fetchmail:
     default: "mailu"
     type: string
   - variable: PASSWORD_SCHEME
-    label: "Default password scheme used for newly created accounts and changed passwords
- (value: SHA512-CRYPT, SHA256-CRYPT, MD5-CRYPT, CRYPT)"
+    label: "Default password scheme used for newly created accounts and changed passwords(value: SHA512-CRYPT, SHA256-CRYPT, MD5-CRYPT, CRYPT)"
     default: "SHA512-CRYPT"
     type: string
   - variable: REAL_IP_HEADER
