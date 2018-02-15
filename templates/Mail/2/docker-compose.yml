@@ -1,373 +1,106 @@
- http:
-    image: mailu/$FRONTEND:${VERSION}
+version: '2'
+
+services:
+
+  front:
+    image: mailu/nginx:$VERSION
     restart: always
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
-     NGINX_SSL_DHPARAM_BITS: ${NGINX_SSL_DHPARAM_BITS}
-    volumes:
-      - "${CERTKEY}:/certs/cert.pem"
-      - "${PRIVKEY}:/certs/key.pem"
-    labels:
-      rap.port: ${VIRTUAL_PORT}
-      rap.le_host: ${VIRTUAL_HOST}
-      rap.le_mail: ${LETSENCRYPT_EMAIL}
-      io.rancher.container.pull_image: always
-      rap.host: ${VIRTUAL_HOST}
-      rap.proto: ${VIRTUAL_PROTO} 
- redis:
-    image: redis:${VERSION}
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
-    restart: always
-    volumes:
-      - "${ROOT}/redis:/data"
- imap:
-    image: mailu/dovecot:${VERSION}
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
-    restart: always
+    env_file: .env
     ports:
-      - "${BIND_ADDRESS}:110:110"
-      - "${BIND_ADDRESS}:143:143"
-      - "${BIND_ADDRESS}:993:993"
-      - "${BIND_ADDRESS}:995:995"
-      - "${BIND_ADDRESS}:4190:4190"
+    - "$BIND_ADDRESS4:80:80"
+    - "$BIND_ADDRESS4:443:443"
+    - "$BIND_ADDRESS4:110:110"
+    - "$BIND_ADDRESS4:143:143"
+    - "$BIND_ADDRESS4:993:993"
+    - "$BIND_ADDRESS4:995:995"
+    - "$BIND_ADDRESS4:25:25"
+    - "$BIND_ADDRESS4:465:465"
+    - "$BIND_ADDRESS4:587:587"
+    - "$BIND_ADDRESS6:80:80"
+    - "$BIND_ADDRESS6:443:443"
+    - "$BIND_ADDRESS6:110:110"
+    - "$BIND_ADDRESS6:143:143"
+    - "$BIND_ADDRESS6:993:993"
+    - "$BIND_ADDRESS6:995:995"
+    - "$BIND_ADDRESS6:25:25"
+    - "$BIND_ADDRESS6:465:465"
+    - "$BIND_ADDRESS6:587:587"
     volumes:
-      - "${ROOT}/data:/data"
-      - "${ROOT}/mail:/mail"
-      - "${CERTKEY}:/certs/cert.pem"
-      - "${PRIVKEY}:/certs/key.pem"
-      - "${ROOT}/overrides:/overrides"
- smtp:
-    image: mailu/postfix:${VERSION}
+      - "$ROOT/certs:/certs"
+
+  redis:
+    image: redis:alpine
     restart: always
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
-    ports:
-      - "${BIND_ADDRESS}:25:25"
-      - "${BIND_ADDRESS}:465:465"
-      - "${BIND_ADDRESS}:587:587"
     volumes:
-      - "${ROOT}/data:/data"
-      - "${CERTKEY}:/certs/cert.pem"
-      - "${PRIVKEY}:/certs/key.pem"
-      - "${ROOT}/overrides:/overrides"
- milter:
-    image: mailu/rmilter:${VERSION}
-    labels: 
-     io.rancher.container.pull_image: always
+      - "$ROOT/redis:/data"
+
+  imap:
+    image: mailu/dovecot:$VERSION
     restart: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
+    env_file: .env
     volumes:
-      - "${ROOT}/filter:/data"
-      - "${ROOT}/dkim:/dkim"
-      - "${ROOT}/overrides:/overrides"
- antispam:
-    image: mailu/rspamd:${VERSION}
+      - "$ROOT/data:/data"
+      - "$ROOT/mail:/mail"
+      - "$ROOT/overrides:/overrides"
+    depends_on:
+      - front
+
+  smtp:
+    image: mailu/postfix:$VERSION
     restart: always
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
+    env_file: .env
     volumes:
-      - "${ROOT}/filter:/var/lib/rspamd"
- antivirus:
-    image: mailu/${ANTIVIRUS}:${VERSION}
+      - "$ROOT/data:/data"
+      - "$ROOT/overrides:/overrides"
+    depends_on:
+      - front
+
+  antispam:
+    image: mailu/rspamd:$VERSION
     restart: always
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
+    env_file: .env
     volumes:
-      - "${ROOT}/filter:/data"
- admin:
-    image: mailu/admin:${VERSION}
+      - "$ROOT/filter:/var/lib/rspamd"
+      - "$ROOT/dkim:/dkim"
+      - "$ROOT/overrides/rspamd:/etc/rspamd/override.d"
+    depends_on:
+      - front
+
+  antivirus:
+    image: mailu/$ANTIVIRUS:$VERSION
     restart: always
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
+    env_file: .env
     volumes:
-      - "${ROOT}/data:/data"
-      - "${ROOT}/dkim:/dkim"
-      - "${CERTKEY}:/certs/cert.pem"
-      - "${PRIVKEY}:/certs/key.pem"
-      - /var/run/docker.sock:/var/run/docker.sock:ro
- webmail:
-    image: "mailu/${WEBMAIL}:${VERSION}"
-    restart: always
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
-    volumes:
-      - "${ROOT}/webmail:/data"
- fetchmail:
-    image: mailu/fetchmail:${VERSION}
-    restart: always
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
-    volumes:
-      - "${ROOT}/data:/data"
- webdav:
+      - "$ROOT/filter:/data"
+
+  webdav:
     image: mailu/$WEBDAV:$VERSION
     restart: always
-    labels: 
-     io.rancher.container.pull_image: always
-    environment:
-     BIND_ADDRESS: ${BIND_ADDRESS}
-     COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
-     DEBUG: ${DEBUG}
-     DOMAIN: ${DOMAIN}
-     ENABLE_CERTBOT: ${ENABLE_CERTBOT}
-     EXPOSE_ADMIN: ${EXPOSE_ADMIN}
-     FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
-     FRONTEND: ${FRONTEND}
-     HOSTNAME: ${HOSTNAME}
-     MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
-     POSTMASTER: ${POSTMASTER}
-     RELAYHOST: ${RELAYHOST}
-     RELAYNETS: ${RELAYNETS}
-     ROOT: ${ROOT}
-     SECRET_KEY: ${SECRET_KEY}
-     VERSION: ${VERSION}
-     WEBMAIL: ${WEBMAIL}
-     RECIPIENT_DELIMITER: ${DELIMITER}
-     DMARC_RUA: ${DMARC_RUA}
-     DMARC_RUF: ${DMARC_RUF}
-     ANTIVIRUS: ${ANTIVIRUS}
-     PASSWORD_SCHEME: ${PASSWORD_SCHEME}
-     WEBDAV: ${WEBDAV}
+    env_file: .env
     volumes:
       - "$ROOT/dav:/data"
+
+  admin:
+    image: mailu/admin:$VERSION
+    restart: always
+    env_file: .env
+    volumes:
+      - "$ROOT/data:/data"
+      - "$ROOT/dkim:/dkim"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - redis
+
+  webmail:
+    image: "mailu/$WEBMAIL:$VERSION"
+    restart: always
+    env_file: .env
+    volumes:
+      - "$ROOT/webmail:/data"
+
+  fetchmail:
+    image: mailu/fetchmail:$VERSION
+    restart: always
+    env_file: .env
+    volumes:
+      - "$ROOT/data:/data"
