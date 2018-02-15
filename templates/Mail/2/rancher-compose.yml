@@ -105,7 +105,7 @@ fetchmail:
     required: true
     type: string
   - variable: DISABLE_STATISTICS
-    label: "Statistics"
+    label: "Statistics Opt Out"
     description: "Opt-out of statistics, replace with "True" to opt out"
     default: "True"
     type: string
