@@ -48,7 +48,7 @@ fetchmail:
   - variable: VERSION
     label: "Mailu Version"
     description: "Mailu version to run (stable, 1.0, 1.1, etc. or latest)"
-    default: "master"
+    default: "latest"
     required: true
     type: string
   - variable: SECRET_KEY
@@ -108,7 +108,6 @@ fetchmail:
     label: "Statistics"
     description: "Opt-out of statistics, replace with "True" to opt out"
     default: "False"
-    required: true
     type: string
   - variable: ADMIN
     label: "Expose the admin interface"
