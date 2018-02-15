@@ -28,12 +28,12 @@ services:
     volumes:
       - "$ROOT/certs:/certs"
     labels:
-      rap.port: ${VIRTUAL_PORT}
-      rap.le_host: ${VIRTUAL_HOST}
-      rap.le_mail: ${LETSENCRYPT_EMAIL}
+      rap.port: $VIRTUAL_PORT
+      rap.le_host: $VIRTUAL_HOST
+      rap.le_mail: $LETSENCRYPT_EMAIL
       io.rancher.container.pull_image: always
-      rap.host: ${VIRTUAL_HOST}
-      rap.proto: ${VIRTUAL_PROTO} 
+      rap.host: $VIRTUAL_HOST
+      rap.proto: $VIRTUAL_PROTO
 
   redis:
     image: redis:alpine
