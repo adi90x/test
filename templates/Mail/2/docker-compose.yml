@@ -7,8 +7,8 @@ services:
     restart: always
     env_file: .env
     ports:
-    - "$BIND_ADDRESS4:80:80"
-    - "$BIND_ADDRESS4:443:443"
+    - "127.0.0.1:80:80"
+    - "127.0.0.1:443:443"
     - "$BIND_ADDRESS4:110:110"
     - "$BIND_ADDRESS4:143:143"
     - "$BIND_ADDRESS4:993:993"
