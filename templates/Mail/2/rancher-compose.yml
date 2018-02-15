@@ -54,7 +54,7 @@ fetchmail:
   - variable: BIND_ADDRESS4
     label: "Mailu bind address ipv4"
     description: "Address where listening ports should bind"
-    default: "127.0.0.1"
+    default: "0.0.0.0"
     required: true
     type: string
   - variable: BIND_ADDRESS6
