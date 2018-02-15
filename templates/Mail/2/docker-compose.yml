@@ -3,111 +3,102 @@ version: '2'
 services:
 
   front:
-    image: mailu/nginx:$VERSION
+    image: mailu/nginx:${VERSION}
     restart: always
-    env_file: .env
     ports:
     - "127.0.0.1:80:80"
     - "127.0.0.1:443:443"
-    - "$BIND_ADDRESS4:110:110"
-    - "$BIND_ADDRESS4:143:143"
-    - "$BIND_ADDRESS4:993:993"
-    - "$BIND_ADDRESS4:995:995"
-    - "$BIND_ADDRESS4:25:25"
-    - "$BIND_ADDRESS4:465:465"
-    - "$BIND_ADDRESS4:587:587"
+    - "${BIND_ADDRESS4}:110:110"
+    - "${BIND_ADDRESS4}:143:143"
+    - "${BIND_ADDRESS4}:993:993"
+    - "${BIND_ADDRESS4}:995:995"
+    - "${BIND_ADDRESS4}:25:25"
+    - "${BIND_ADDRESS4}:465:465"
+    - "${BIND_ADDRESS4}:587:587"
     - "127.0.0.1:80:80"
     - "127.0.0.1:443:443"
-    - "$BIND_ADDRESS6:110:110"
-    - "$BIND_ADDRESS6:143:143"
-    - "$BIND_ADDRESS6:993:993"
-    - "$BIND_ADDRESS6:995:995"
-    - "$BIND_ADDRESS6:25:25"
-    - "$BIND_ADDRESS6:465:465"
-    - "$BIND_ADDRESS6:587:587"
+    - "${BIND_ADDRESS6}:110:110"
+    - "${BIND_ADDRESS6}:143:143"
+    - "${BIND_ADDRESS6}:993:993"
+    - "${BIND_ADDRESS6}:995:995"
+    - "${BIND_ADDRESS6}:25:25"
+    - "${BIND_ADDRESS6}:465:465"
+    - "${BIND_ADDRESS6}:587:587"
     volumes:
-      - "$ROOT/certs:/certs"
+      - "${ROOT}/certs:/certs"
     labels:
-      rap.port: $VIRTUAL_PORT
-      rap.le_host: $VIRTUAL_HOST
-      rap.le_mail: $LETSENCRYPT_EMAIL
+      rap.port: ${VIRTUAL_PORT}
+      rap.le_host: ${VIRTUAL_HOST}
+      rap.le_mail: ${LETSENCRYPT_EMAIL}
       io.rancher.container.pull_image: always
-      rap.host: $VIRTUAL_HOST
-      rap.proto: $VIRTUAL_PROTO
+      rap.host: ${VIRTUAL_HOST}
+      rap.proto: ${VIRTUAL_PROTO}
 
   redis:
     image: redis:alpine
     restart: always
     volumes:
-      - "$ROOT/redis:/data"
+      - "${ROOT}/redis:/data"
 
   imap:
-    image: mailu/dovecot:$VERSION
+    image: mailu/dovecot:${VERSION}
     restart: always
-    env_file: .env
     volumes:
-      - "$ROOT/data:/data"
-      - "$ROOT/mail:/mail"
-      - "$ROOT/overrides:/overrides"
+      - "${ROOT}/data:/data"
+      - "${ROOT}/mail:/mail"
+      - "${ROOT}/overrides:/overrides"
     depends_on:
       - front
 
   smtp:
-    image: mailu/postfix:$VERSION
+    image: mailu/postfix:${VERSION}
     restart: always
-    env_file: .env
-    volumes:
-      - "$ROOT/data:/data"
-      - "$ROOT/overrides:/overrides"
+        volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/overrides:/overrides"
     depends_on:
       - front
 
   antispam:
-    image: mailu/rspamd:$VERSION
+    image: mailu/rspamd:${VERSION}
     restart: always
-    env_file: .env
-    volumes:
-      - "$ROOT/filter:/var/lib/rspamd"
-      - "$ROOT/dkim:/dkim"
-      - "$ROOT/overrides/rspamd:/etc/rspamd/override.d"
+        volumes:
+      - "${ROOT}/filter:/var/lib/rspamd"
+      - "${ROOT}/dkim:/dkim"
+      - "${ROOT}/overrides/rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
 
   antivirus:
-    image: mailu/$ANTIVIRUS:$VERSION
+    image: mailu/${ANTIVIRUS}:${VERSION}
     restart: always
-    env_file: .env
-    volumes:
-      - "$ROOT/filter:/data"
+        volumes:
+      - "${ROOT}/filter:/data"
 
   webdav:
-    image: mailu/$WEBDAV:$VERSION
+    image: mailu/${WEBDAV}:${VERSION}
     restart: always
-    env_file: .env
-    volumes:
-      - "$ROOT/dav:/data"
+        volumes:
+      - "${ROOT}/dav:/data"
 
   admin:
-    image: mailu/admin:$VERSION
+    image: mailu/admin:${VERSION}
     restart: always
-    env_file: .env
-    volumes:
-      - "$ROOT/data:/data"
-      - "$ROOT/dkim:/dkim"
+        volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/dkim:/dkim"
       - /var/run/docker.sock:/var/run/docker.sock:ro
     depends_on:
       - redis
 
   webmail:
-    image: "mailu/$WEBMAIL:$VERSION"
+    image: "mailu/${WEBMAIL}:${VERSION}"
     restart: always
-    env_file: .env
-    volumes:
-      - "$ROOT/webmail:/data"
+        volumes:
+      - "${ROOT}/webmail:/data"
 
   fetchmail:
-    image: mailu/fetchmail:$VERSION
+    image: mailu/fetchmail:${VERSION}
     restart: always
-    env_file: .env
-    volumes:
-      - "$ROOT/data:/data"
+        volumes:
+      - "${ROOT}/data:/data"
