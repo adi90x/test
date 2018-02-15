@@ -39,34 +39,16 @@ fetchmail:
     default: "https"
     required: true
     type: string
-  - variable: LETSENCRYPT_EMAIL
-    label: "Lets's Encrypt Email"
-    description: "Email use to create let's encrypt certificate"
-    default: "amaurel90@gmail.com"
-    required: true
-    type: string
   - variable: ROOT
     label: "Root Path"
     description: "Set this to the path where Mailu data and configuration is stored"
     default: "/home/adrienm/data/mailu"
     required: true
     type: string
-  - variable: PRIVKEY
-    label: "Private Key Path"
-    description: "Set this to the path where Maiu can find SSL private Key"
-    default: "/home/adrienm/data/nginx/letsencrypt/live/mail.wheretogo.fr/privkey.pem"
-    required: true
-    type: string
-  - variable: CERTKEY
-    label: "Cert Path"
-    description: "Set this to the path where Maiu can find SSL Cert Key"
-    default: "/home/adrienm/data/nginx/letsencrypt/live/mail.wheretogo.fr/fullchain.pem"
-    required: true
-    type: string
   - variable: VERSION
     label: "Mailu Version"
     description: "Mailu version to run (stable, 1.0, 1.1, etc. or latest)"
-    default: "latest"
+    default: "master"
     required: true
     type: string
   - variable: SECRET_KEY
@@ -75,10 +57,16 @@ fetchmail:
     default: "060190adrienmadi"
     required: true
     type: string
-  - variable: BIND_ADDRESS
-    label: "Mailu bind address"
+  - variable: BIND_ADDRESS4
+    label: "Mailu bind address ipv4"
     description: "Address where listening ports should bind"
     default: "0.0.0.0"
+    required: true
+    type: string
+  - variable: BIND_ADDRESS6
+    label: "Mailu bind address ipv6"
+    description: "Address where listening ports should bind"
+    default: "::1"
     required: true
     type: string
   - variable: DOMAIN
@@ -86,9 +74,9 @@ fetchmail:
     default: "wheretogo.fr"
     required: true
     type: string
-  - variable: HOSTNAME
+  - variable: HOSTNAMES
     label: "Exposed mail-server hostname"
-    default: "mail.wheretogo.fr"
+    default: "mail.wheretogo.fr,mail.menjuc.com"
     required: true
     type: string
   - variable: POSTMASTER
@@ -97,20 +85,37 @@ fetchmail:
     default: "admin"
     required: true
     type: string
-  - variable: COMPOSE_PROJECT_NAME
-    label: "Docker-compose project name"
-    description: "Docker-compose project name, this will prepended to containers names."
-    default: "mail"
-    required: true
-    type: string
-  - variable: FRONTEND
-    label: "Frontend web server"
-    description: "Choose which frontend Web server to run if any (value: nginx, none)"
-    default: "nginx"
+  - variable: TLS_FLAVOR
+    label: "How to secure connections"
+    description: "Address where listening ports should bind"
+    default: "letsencrypt"
     type: enum
     options:
-        - "nginx"
-        - "none"
+        - "letsencrypt"
+        - "cert"
+        - "notls"
+        - "mail"
+        - "mail-letsencrypt"
+    required: true
+    type: string
+  - variable: AUTH_RATELIMIT
+    label: "Authentication Limit"
+    description: "Authentication rate limit (per source IP address)"
+    default: "10/minute;1000/hour"
+    required: true
+    type: string
+  - variable: DISABLE_STATISTICS
+    label: "Statistics"
+    description: "Opt-out of statistics, replace with "True" to opt out"
+    default: "False"
+    required: true
+    type: string
+  - variable: ADMIN
+    label: "Expose the admin interface"
+    description: "Expose the admin interface (value: true, false)"
+    default: "true"
+    required: true
+    type: string
   - variable: WEBMAIL
     label: "Webmail server type"
     description: "Choose which webmail to run if any (values: roundcube, rainloop, none)"
@@ -120,30 +125,17 @@ fetchmail:
         - "roundcube"
         - "rainloop"
         - "none"
-  - variable: EXPOSE_ADMIN
-    label: "Expose administration"
-    description: "Expose the admin interface in publicly (values: yes, no)"
-    default: "yes"
-    type: enum
-    options:
-        - "yes"
-        - "no"
-  - variable: ENABLE_CERTBOT
-    label: "Use Certbot to generate a TLS cert"
-    description: "Use Letsencrypt to generate a TLS certificate (True to enable)"
-    default: "False"
-    type: enum
-    options:
-        - "True"
-        - "False"
   - variable: WEBDAV
-    label: "Dav Server"
+    label: "DAV Server Implementation"
     description: "Dav server implementation (value: radicale, none)"
-    default: "radicale"
-    type: enum
-    options:
-        - "none"
-        - "radicale"
+    default: "none"
+    required: true
+    type: string
+  - variable: ANTIVIRUS
+    label: "Antivirus Options"
+    description: "Antivirus solution (value: clamav, none)"
+    default: "none"
+    type: string
   - variable: MESSAGE_SIZE_LIMIT
     label: "Message size limit in bytes"
     description: "Default: accept messages up to 50MB"
@@ -163,7 +155,7 @@ fetchmail:
     label: "Fetchmail delay"
     default: "600"
     type: string
-  - variable: DELIMITER
+  - variable: RECIPIENT_DELIMITER
     label: "Recipent Delimiter to create local adress"
     default: "+"
     type: string
@@ -176,18 +168,50 @@ fetchmail:
     label: "User for DMARC RUF"
     default: "admin"
     type: string
-  - variable: ANTIVIRUS
-    label: "Antivirus solution (value: clamav, none)"
-    default: "none"
+  - variable: WELCOME
+    label: "Enable Welcome message ( true/false)"
+    default: "true"
+    type: string
+  - variable: WELCOME_SUBJECT
+    label: "Welcome message subject"
+    default: "Welcome to your new email account"
+    type: string
+  - variable: WELCOME_BODY
+    label: "Welcome Message Body"
+    default: "Welcome to your new email account, if you can read this, then it is configured properly!"
+    type: string
+  - variable: WEB_ADMIN
+    label: "Path to the admin interface ( if enable )"
+    default: "/admin"
+    type: string
+  - variable: WEB_WEBMAIL
+    label: "Path to the Webmail"
+    default: "/webmail"
+    type: string
+  - variable: SITENAME
+    label: "Website Name"
+    default: "Wheretogo"
+    type: string
+  - variable: WEBSITE
+    label: "Linked Website URL"
+    default: "https://wheretogo.fr"
+    type: string
+  - variable: COMPOSE_PROJECT_NAME
+    label: "Docker Compose project name"
+    default: "mailu"
     type: string
   - variable: PASSWORD_SCHEME
     label: "Default password scheme used for newly created accounts and changed passwords
  (value: SHA512-CRYPT, SHA256-CRYPT, MD5-CRYPT, CRYPT)"
     default: "SHA512-CRYPT"
     type: string
-  - variable: NGINX_SSL_DHPARAM_BITS
-    label: "DHParams size"
-    default: "2048"
+  - variable: REAL_IP_HEADER
+    label: "Header to take the real ip from"
+    default: ""
+    type: string
+  - variable: REAL_IP_FROM
+    label: "IPs for nginx set_real_ip_from (CIDR list separated by commas)"
+    default: ""
     type: string
   - variable: DEBUG
     label: "Enable Debug"
