@@ -52,7 +52,6 @@ services:
       PASSWORD_SCHEME: ${PASSWORD_SCHEME}
       REAL_IP_HEADER: ${REAL_IP_HEADER}
       REAL_IP_FROM: ${REAL_IP_FROM}
-      DEBUG: ${DEBUG}
 
   redis:
     image: redis:alpine
@@ -99,7 +98,6 @@ services:
       PASSWORD_SCHEME: ${PASSWORD_SCHEME}
       REAL_IP_HEADER: ${REAL_IP_HEADER}
       REAL_IP_FROM: ${REAL_IP_FROM}
-      DEBUG: ${DEBUG}
 
   smtp:
     image: mailu/postfix:${VERSION}
@@ -139,7 +137,6 @@ services:
       PASSWORD_SCHEME: ${PASSWORD_SCHEME}
       REAL_IP_HEADER: ${REAL_IP_HEADER}
       REAL_IP_FROM: ${REAL_IP_FROM}
-      DEBUG: ${DEBUG}
 
   antispam:
     image: mailu/rspamd:${VERSION}
@@ -180,7 +177,6 @@ services:
       PASSWORD_SCHEME: ${PASSWORD_SCHEME}
       REAL_IP_HEADER: ${REAL_IP_HEADER}
       REAL_IP_FROM: ${REAL_IP_FROM}
-      DEBUG: ${DEBUG}
 
   antivirus:
     image: mailu/${ANTIVIRUS}:${VERSION}
@@ -217,7 +213,6 @@ services:
       PASSWORD_SCHEME: ${PASSWORD_SCHEME}
       REAL_IP_HEADER: ${REAL_IP_HEADER}
       REAL_IP_FROM: ${REAL_IP_FROM}
-      DEBUG: ${DEBUG}
 
   webdav:
     image: mailu/${WEBDAV}:${VERSION}
@@ -254,7 +249,6 @@ services:
       PASSWORD_SCHEME: ${PASSWORD_SCHEME}
       REAL_IP_HEADER: ${REAL_IP_HEADER}
       REAL_IP_FROM: ${REAL_IP_FROM}
-      DEBUG: ${DEBUG}
 
   admin:
     image: mailu/admin:${VERSION}
@@ -295,7 +289,6 @@ services:
       PASSWORD_SCHEME: ${PASSWORD_SCHEME}
       REAL_IP_HEADER: ${REAL_IP_HEADER}
       REAL_IP_FROM: ${REAL_IP_FROM}
-      DEBUG: ${DEBUG}
 
   webmail:
     image: "mailu/${WEBMAIL}:${VERSION}"
@@ -332,7 +325,6 @@ services:
       PASSWORD_SCHEME: ${PASSWORD_SCHEME}
       REAL_IP_HEADER: ${REAL_IP_HEADER}
       REAL_IP_FROM: ${REAL_IP_FROM}
-      DEBUG: ${DEBUG}
 
   fetchmail:
     image: mailu/fetchmail:${VERSION}
@@ -369,4 +361,3 @@ services:
       PASSWORD_SCHEME: ${PASSWORD_SCHEME}
       REAL_IP_HEADER: ${REAL_IP_HEADER}
       REAL_IP_FROM: ${REAL_IP_FROM}
-      DEBUG: ${DEBUG}
