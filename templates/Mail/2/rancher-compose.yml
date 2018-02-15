@@ -39,6 +39,12 @@ fetchmail:
     default: "https"
     required: true
     type: string
+  - variable: LETSENCRYPT_EMAIL
+    label: "Lets's Encrypt Email"
+    description: "Email use to create let's encrypt certificate"
+    default: "amaurel90@gmail.com"
+    required: true
+    type: string
   - variable: ROOT
     label: "Root Path"
     description: "Set this to the path where Mailu data and configuration is stored"
