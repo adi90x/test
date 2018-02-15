@@ -48,7 +48,7 @@ fetchmail:
   - variable: VERSION
     label: "Mailu Version"
     description: "Mailu version to run (stable, 1.0, 1.1, etc. or latest)"
-    default: "latest"
+    default: "master"
     required: true
     type: string
   - variable: SECRET_KEY
@@ -96,6 +96,11 @@ fetchmail:
         - "notls"
         - "mail"
         - "mail-letsencrypt"
+    required: true
+    type: string
+  - variable: DISABLE_STATISTICS
+    label: "Opt Out of Statistics"
+    default: "True"
     required: true
     type: string
   - variable: AUTH_RATELIMIT
