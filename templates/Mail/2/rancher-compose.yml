@@ -8,7 +8,7 @@ redis:
   scale: 1
 imap:
   scale: 1
-http:
+front:
   scale: 1
 antispam:
   scale: 1
@@ -107,7 +107,7 @@ fetchmail:
   - variable: DISABLE_STATISTICS
     label: "Statistics"
     description: "Opt-out of statistics, replace with "True" to opt out"
-    default: "False"
+    default: "True"
     type: string
   - variable: ADMIN
     label: "Expose the admin interface"
