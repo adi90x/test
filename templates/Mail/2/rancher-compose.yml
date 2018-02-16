@@ -94,7 +94,7 @@ fetchmail:
   - variable: TLS_FLAVOR
     label: "How to secure connections"
     description: "Address where listening ports should bind"
-    default: "letsencrypt"
+    default: "mail-letsencrypt"
     type: enum
     options:
         - "letsencrypt"
