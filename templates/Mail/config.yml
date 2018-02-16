@@ -1,6 +1,6 @@
 name: Mail Server
 description: "Create a Mail Serveur based on Mailu"
-version: v0.0.1
+version: v0.0.2
 category: Perso
 maintainer: AdrienM
 license: Apache 2.0

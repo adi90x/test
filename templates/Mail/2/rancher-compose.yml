@@ -14,7 +14,7 @@ antispam:
   scale: 1
 admin:
   scale: 1
-milter:
+webdav:
   scale: 1
 fetchmail:
   scale: 1
@@ -66,7 +66,7 @@ fetchmail:
   - variable: BIND_ADDRESS6
     label: "Mailu bind address ipv6"
     description: "Address where listening ports should bind"
-    default: "::1"
+    default: ":::1"
     required: true
     type: string
   - variable: SECRET_KEY
