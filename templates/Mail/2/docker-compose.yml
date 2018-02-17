@@ -6,8 +6,6 @@ services:
     image: mailu/nginx:${VERSION}
     restart: always
     ports:
-    - "${BIND_ADDRESS4}:80:80"
-    - "${BIND_ADDRESS4}:443:443"
     - "${BIND_ADDRESS4}:110:110"
     - "${BIND_ADDRESS4}:143:143"
     - "${BIND_ADDRESS4}:993:993"
