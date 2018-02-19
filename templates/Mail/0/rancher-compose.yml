@@ -38,7 +38,7 @@ fetchmail:
     description: "Not sure if it is usefull or not"
     default: "https"
     required: true
-    type: string  
+    type: string
   - variable: LETSENCRYPT_EMAIL
     label: "Lets's Encrypt Email"
     description: "Email use to create let's encrypt certificate"
@@ -107,16 +107,16 @@ fetchmail:
     label: "Frontend web server"
     description: "Choose which frontend Web server to run if any (value: nginx, none)"
     default: "nginx"
-    type: enum   
-    options: 
+    type: enum
+    options:
         - "nginx"
         - "none"
   - variable: WEBMAIL
     label: "Webmail server type"
     description: "Choose which webmail to run if any (values: roundcube, rainloop, none)"
     default: "roundcube"
-    type: enum   
-    options: 
+    type: enum
+    options:
         - "roundcube"
         - "rainloop"
         - "none"
@@ -124,24 +124,24 @@ fetchmail:
     label: "Expose administration"
     description: "Expose the admin interface in publicly (values: yes, no)"
     default: "yes"
-    type: enum   
-    options: 
+    type: enum
+    options:
         - "yes"
         - "no"
   - variable: ENABLE_CERTBOT
     label: "Use Certbot to generate a TLS cert"
     description: "Use Letsencrypt to generate a TLS certificate (True to enable)"
     default: "False"
-    type: enum   
-    options: 
+    type: enum
+    options:
         - "True"
         - "False"
   - variable: WEBDAV
     label: "Dav Server"
     description: "Dav server implementation (value: radicale, none)"
     default: "radicale"
-    type: enum   
-    options: 
+    type: enum
+    options:
         - "none"
         - "radicale"
   - variable: MESSAGE_SIZE_LIMIT
@@ -167,11 +167,3 @@ fetchmail:
     label: "DHParams size"
     default: "2048"
     type: string
-  - variable: DEBUG
-    label: "Enable Debug"
-    default: "False"
-    type: enum   
-    options: 
-        - "True"
-        - "False"
-    
