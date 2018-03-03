@@ -27,6 +27,8 @@ locale-gen fr_FR.UTF-8
 
 echo "complete -cf sudo" >> /home/adrienm/.bashrc
 echo "bind 'set match-hidden-files off'" >> /home/adrienm/.bashrc
+echo "alias up='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove'" >> /home/adrienm/.bashrc
+
 
 
 su adrienm
