@@ -6,7 +6,7 @@ stages:
 before_script:
     - if [ $CI_BUILD_REF_NAME == "master" ]; then tag="latest"; else tag=$CI_BUILD_REF_NAME; fi
     - echo $CI_COMMIT_TAG
-    - echo "Test"
+    - echo "Testt"
 
 build-image:
  image: docker
