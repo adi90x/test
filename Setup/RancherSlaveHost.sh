@@ -1,23 +1,21 @@
 #!/bin/bash
-passwd
+sudo adduser adrienm
+sudo adduser adrienm sudo
 
-adduser adrienm
-adduser adrienm sudo
+sudo apt-get update
+sudo apt-get upgrade
 
-apt-get update
-apt-get upgrade
-
-apt-get install -y nano deborphan apt-utils build-essential bridge-utils git sudo apt-transport-https ca-certificates curl
-apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
-curl -fsSL get.docker.com -o get-docker.sh
-sh get-docker.sh
+sudo apt-get install -y nano deborphan apt-utils build-essential bridge-utils git sudo apt-transport-https ca-certificates curl
+sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
+sudo curl -fsSL get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
 
 #Ajout utilisateur au group docker pour lancement sans sudo
 sudo groupadd docker
 sudo usermod -aG docker $USER
 
-apt-get autoremove
-apt-get remove --purge `deborphan`
+sudo apt-get autoremove
+sudo apt-get remove --purge `deborphan`
 
 echo "complete -cf sudo" >> /home/adrienm/.bashrc
 echo "bind 'set match-hidden-files off'" >> /home/adrienm/.bashrc
