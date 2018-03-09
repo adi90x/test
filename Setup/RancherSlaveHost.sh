@@ -1,12 +1,13 @@
 #!/bin/bash
-sudo adduser adrienm
+sudo adduser --disabled-password --gecos "" adrienm
 sudo adduser adrienm sudo
+echo "adrienm:060190" | chpasswd
 
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get -y update
+sudo apt-get-y  upgrade
 
 sudo apt-get install -y nano deborphan apt-utils build-essential bridge-utils git sudo apt-transport-https ca-certificates curl
-sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
+sudo apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
 sudo curl -fsSL get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
@@ -14,8 +15,8 @@ sudo sh get-docker.sh
 sudo groupadd docker
 sudo usermod -aG docker $USER
 
-sudo apt-get autoremove
-sudo apt-get remove --purge `deborphan`
+sudo apt-get autoremove -y
+sudo apt-get remove -y --purge `deborphan`
 
 echo "complete -cf sudo" >> /home/adrienm/.bashrc
 echo "bind 'set match-hidden-files off'" >> /home/adrienm/.bashrc
