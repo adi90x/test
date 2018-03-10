@@ -2,38 +2,52 @@ version: '2'
 volumes:
   certs:
     driver: rancher-nfs
+    external: true
     driver_opts:
       exportBase: /mailu
   redis:
     driver: rancher-nfs
+    external: true
     driver_opts:
       exportBase: /mailu
   data:
     driver: rancher-nfs
+    external: true
     driver_opts:
       exportBase: /mailu
   mail:
     driver: rancher-nfs
+    external: true
     driver_opts:
       exportBase: /mailu
   overrides:
     driver: rancher-nfs
+    external: true
     driver_opts:
       exportBase: /mailu
   filter:
     driver: rancher-nfs
+    external: true
     driver_opts:
       exportBase: /mailu
   dkim:
     driver: rancher-nfs
+    external: true
+    driver_opts:
+      exportBase: /mailu
+  rspamd:
+    driver: rancher-nfs
+    external: true
     driver_opts:
       exportBase: /mailu
   dav:
     driver: rancher-nfs
+    external: true
     driver_opts:
       exportBase: /mailu
   webmail:
     driver: rancher-nfs
+    external: true
     driver_opts:
       exportBase: /mailu
 services:
@@ -101,6 +115,7 @@ services:
       - "data:/data"
       - "mail:/mail"
       - "overrides:/overrides"
+      - "rspamd:/overrides/rspamd"
     depends_on:
       - front
     environment:
@@ -140,6 +155,7 @@ services:
     volumes:
       - "data:/data"
       - "overrides:/overrides"
+      - "rspamd:/overrides/rspamd"
     depends_on:
       - front
     environment:
@@ -179,7 +195,7 @@ services:
     volumes:
       - "filter:/var/lib/rspamd"
       - "dkim:/dkim"
-      - "overrides/rspamd:/etc/rspamd/override.d"
+      - "rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
     environment:
