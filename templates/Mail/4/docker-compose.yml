@@ -1,32 +1,50 @@
 version: '2'
 volumes:
-  mailu/certs:
+  certs:
     external: true
     driver: rancher-nfs
-  mailu/redis:
+    driver_opts:
+      exportBase: /mailu
+  redis:
     external: true
     driver: rancher-nfs
-  mailu/data:
+    driver_opts:
+      exportBase: /mailu
+  data:
     external: true
     driver: rancher-nfs
-  mailu/mail:
+    driver_opts:
+      exportBase: /mailu
+  mail:
     external: true
     driver: rancher-nfs
-  mailu/overrides:
+    driver_opts:
+      exportBase: /mailu
+  overrides:
     external: true
     driver: rancher-nfs
-  mailu/filter:
+    driver_opts:
+      exportBase: /mailu
+  filter:
     external: true
     driver: rancher-nfs
-  mailu/dkim:
+    driver_opts:
+      exportBase: /mailu
+  dkim:
     external: true
     driver: rancher-nfs
-  mailu/dav:
+    driver_opts:
+      exportBase: /mailu
+  dav:
     external: true
     driver: rancher-nfs
-  mailu/webmail:
+    driver_opts:
+      exportBase: /mailu
+  webmail:
     external: true
     driver: rancher-nfs
+    driver_opts:
+      exportBase: /mailu
 services:
   front:
     image: mailu/nginx:${VERSION}
@@ -40,7 +58,7 @@ services:
     - "${BIND_ADDRESS4}:465:465"
     - "${BIND_ADDRESS4}:587:587"
     volumes:
-      - "mailu/certs:/certs"
+      - "certs:/certs"
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: server=true
@@ -83,15 +101,15 @@ services:
     image: redis:alpine
     restart: always
     volumes:
-      - "mailu/redis:/data"
+      - "redis:/data"
 
   imap:
     image: mailu/dovecot:${VERSION}
     restart: always
     volumes:
-      - "mailu/data:/data"
-      - "mailu/mail:/mail"
-      - "mailu/overrides:/overrides"
+      - "data:/data"
+      - "mail:/mail"
+      - "overrides:/overrides"
     depends_on:
       - front
     environment:
@@ -129,8 +147,8 @@ services:
     image: mailu/postfix:${VERSION}
     restart: always
     volumes:
-      - "mailu/data:/data"
-      - "mailu/overrides:/overrides"
+      - "data:/data"
+      - "overrides:/overrides"
     depends_on:
       - front
     environment:
@@ -168,9 +186,9 @@ services:
     image: mailu/rspamd:${VERSION}
     restart: always
     volumes:
-      - "mailu/filter:/var/lib/rspamd"
-      - "mailu/dkim:/dkim"
-      - "mailu/overrides/rspamd:/etc/rspamd/override.d"
+      - "filter:/var/lib/rspamd"
+      - "dkim:/dkim"
+      - "overrides/rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
     environment:
@@ -208,7 +226,7 @@ services:
     image: mailu/${ANTIVIRUS}:${VERSION}
     restart: always
     volumes:
-      - "mailu/filter:/data"
+      - "filter:/data"
     environment:
       BIND_ADDRESS4: ${BIND_ADDRESS4}
       BIND_ADDRESS6: ${BIND_ADDRESS6}
@@ -244,7 +262,7 @@ services:
     image: mailu/${WEBDAV}:${VERSION}
     restart: always
     volumes:
-      - "mailu/dav:/data"
+      - "dav:/data"
     environment:
       BIND_ADDRESS4: ${BIND_ADDRESS4}
       BIND_ADDRESS6: ${BIND_ADDRESS6}
@@ -280,8 +298,8 @@ services:
     image: mailu/admin:${VERSION}
     restart: always
     volumes:
-      - "mailu/data:/data"
-      - "mailu/dkim:/dkim"
+      - "data:/data"
+      - "dkim:/dkim"
       - /var/run/docker.sock:/var/run/docker.sock:ro
     depends_on:
       - redis
@@ -320,7 +338,7 @@ services:
     image: "mailu/${WEBMAIL}:${VERSION}"
     restart: always
     volumes:
-      - "mailu/webmail:/data"
+      - "webmail:/data"
     environment:
       BIND_ADDRESS4: ${BIND_ADDRESS4}
       BIND_ADDRESS6: ${BIND_ADDRESS6}
@@ -356,7 +374,7 @@ services:
     image: mailu/fetchmail:${VERSION}
     restart: always
     volumes:
-      - "mailu/data:/data"
+      - "data:/data"
     environment:
       BIND_ADDRESS4: ${BIND_ADDRESS4}
       BIND_ADDRESS6: ${BIND_ADDRESS6}
