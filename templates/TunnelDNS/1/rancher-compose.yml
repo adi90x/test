@@ -1,0 +1,22 @@
+Iodined:
+  scale: 1
+.catalog:
+ name: "Version Initial"
+ version: "v0.0.1"
+ questions:
+  - variable: PORT
+    label: "Iodine serveur listening port"
+    default: 53
+    type: int
+  - variable: PASS
+    label: "Iodine Password"
+    default: "060190"
+    type: string
+  - variable: HOST
+    label: "Hostname iodine should be listening"
+    default: "io.wheretogo.fr"
+    type: string
+  - variable: IP
+    label: "Default IP iodine should use"
+    default: "10.0.0.1"
+    type: string    

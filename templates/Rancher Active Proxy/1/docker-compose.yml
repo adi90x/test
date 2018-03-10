@@ -1,0 +1,35 @@
+version: '2'
+services:
+  Rancher-Active-Proxy:
+    image: adi90x/rancher-active-proxy
+    environment:
+      DEFAULT_HOST: ${DEFAULT_HOST}
+      DEFAULT_EMAIL: ${DEFAULT_EMAIL}
+      CRON: ${CRON}
+      DEBUG: ${DEBUG}
+    stdin_open: true
+    volumes:
+    - ${PATH}/htpasswd:/etc/nginx/htpasswd
+    - ${PATH}/vhost.d:/etc/nginx/vhost.d
+    - ${PATH}/letsencrypt:/etc/letsencrypt
+    tty: true
+    ports:
+    - 80:80/tcp
+    - 443:443/tcp
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: server=true
+  NFSServer:
+    privileged: true
+    image: itsthenetwork/nfs-server-alpine
+    hostname: nfsserver
+    environment:
+      SHARED_DIRECTORY: /shared
+    stdin_open: true
+    volumes:
+    - /home/adrienm/data/nfs:/shared
+    tty: true
+    labels:
+      io.rancher.scheduler.affinity:host_label: server=true
+      io.rancher.container.pull_image: always
+      io.rancher.container.requested_ip: 10.42.31.126

@@ -1,0 +1,16 @@
+Iodined:
+  ports:
+    - ${PORT}:53/udp
+  environment:
+    IODINE_PASS: ${PASS}
+    IODINE_HOST: ${HOST}
+    IODINE_IP: ${IP}
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity:host_label: server=true
+  image: adamant/iodine
+  devices:
+    - /dev/net/tun:/dev/net/tun:rwm
+  net: bridge
+  cap_add:
+    - NET_ADMIN
