@@ -26,6 +26,7 @@ services:
     environment:
       SHARED_DIRECTORY: /shared/mailu
       SHARED_DIRECTORY: /shared/arbnode
+      SHARED_DIRECTORY: /shared/data
     stdin_open: true
     privileged: true
     volumes:
