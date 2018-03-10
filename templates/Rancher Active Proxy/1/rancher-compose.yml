@@ -2,9 +2,9 @@ Proxy:
   scale: 1
   start_on_create: true
 NFSServer:
-  retain_ip: true
   scale: 1
   start_on_create: true
+  retain_ip: true
 .catalog:
  name: "Initial Version"
  version: "v0.0.1"
