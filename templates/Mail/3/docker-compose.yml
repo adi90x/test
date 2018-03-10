@@ -1,0 +1,363 @@
+version: '2'
+
+services:
+
+  front:
+    image: mailu/nginx:${VERSION}
+    restart: always
+    ports:
+    - "${BIND_ADDRESS4}:110:110"
+    - "${BIND_ADDRESS4}:143:143"
+    - "${BIND_ADDRESS4}:993:993"
+    - "${BIND_ADDRESS4}:995:995"
+    - "${BIND_ADDRESS4}:25:25"
+    - "${BIND_ADDRESS4}:465:465"
+    - "${BIND_ADDRESS4}:587:587"
+    volumes:
+      - "${ROOT}/certs:/certs"
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: server=true
+      rap.le_host: ${LETSENCRYPT_HOST}
+      rap.le_mail: ${LETSENCRYPT_EMAIL}
+      rap.host: ${VIRTUAL_HOST}
+      rap.le_bypass: ${LETSENCRYPT_BYPASS}
+    environment:
+      BIND_ADDRESS4: ${BIND_ADDRESS4}
+      BIND_ADDRESS6: ${BIND_ADDRESS6}
+      ROOT: ${ROOT}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      HOSTNAMES: ${HOSTNAMES}
+      POSTMASTER: ${POSTMASTER}
+      TLS_FLAVOR: ${TLS_FLAVOR}
+      DISABLE_STATISTICS: ${DISABLE_STATISTICS}
+      AUTH_RATELIMIT: ${AUTH_RATELIMIT}
+      ADMIN: ${ADMIN}
+      WEBMAIL: ${WEBMAIL}
+      MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+      RELAYNETS: ${RELAYNETS}
+      RELAYHOST: ${RELAYHOST}
+      FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+      RECIPIENT_DELIMITER: ${RECIPIENT_DELIMITER}
+      DMARC_RUA: ${DMARC_RUA}
+      DMARC_RUF: ${DMARC_RUF}
+      WELCOME: ${WELCOME}
+      WELCOME_SUBJECT: ${WELCOME_SUBJECT}
+      WELCOME_BODY: ${WELCOME_BODY}
+      WEB_ADMIN: ${WEB_ADMIN}
+      WEB_WEBMAIL: ${WEB_WEBMAIL}
+      SITENAME: ${SITENAME}
+      WEBSITE: ${WEBSITE}
+      PASSWORD_SCHEME: ${PASSWORD_SCHEME}
+      REAL_IP_HEADER: ${REAL_IP_HEADER}
+      REAL_IP_FROM: ${REAL_IP_FROM}
+
+  redis:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - "${ROOT}/redis:/data"
+
+  imap:
+    image: mailu/dovecot:${VERSION}
+    restart: always
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/mail:/mail"
+      - "${ROOT}/overrides:/overrides"
+    depends_on:
+      - front
+    environment:
+      BIND_ADDRESS4: ${BIND_ADDRESS4}
+      BIND_ADDRESS6: ${BIND_ADDRESS6}
+      ROOT: ${ROOT}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      HOSTNAMES: ${HOSTNAMES}
+      POSTMASTER: ${POSTMASTER}
+      TLS_FLAVOR: ${TLS_FLAVOR}
+      DISABLE_STATISTICS: ${DISABLE_STATISTICS}
+      AUTH_RATELIMIT: ${AUTH_RATELIMIT}
+      ADMIN: ${ADMIN}
+      WEBMAIL: ${WEBMAIL}
+      MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+      RELAYNETS: ${RELAYNETS}
+      RELAYHOST: ${RELAYHOST}
+      FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+      RECIPIENT_DELIMITER: ${RECIPIENT_DELIMITER}
+      DMARC_RUA: ${DMARC_RUA}
+      DMARC_RUF: ${DMARC_RUF}
+      WELCOME: ${WELCOME}
+      WELCOME_SUBJECT: ${WELCOME_SUBJECT}
+      WELCOME_BODY: ${WELCOME_BODY}
+      WEB_ADMIN: ${WEB_ADMIN}
+      WEB_WEBMAIL: ${WEB_WEBMAIL}
+      SITENAME: ${SITENAME}
+      WEBSITE: ${WEBSITE}
+      PASSWORD_SCHEME: ${PASSWORD_SCHEME}
+      REAL_IP_HEADER: ${REAL_IP_HEADER}
+      REAL_IP_FROM: ${REAL_IP_FROM}
+
+  smtp:
+    image: mailu/postfix:${VERSION}
+    restart: always
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/overrides:/overrides"
+    depends_on:
+      - front
+    environment:
+      BIND_ADDRESS4: ${BIND_ADDRESS4}
+      BIND_ADDRESS6: ${BIND_ADDRESS6}
+      ROOT: ${ROOT}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      HOSTNAMES: ${HOSTNAMES}
+      POSTMASTER: ${POSTMASTER}
+      TLS_FLAVOR: ${TLS_FLAVOR}
+      DISABLE_STATISTICS: ${DISABLE_STATISTICS}
+      AUTH_RATELIMIT: ${AUTH_RATELIMIT}
+      ADMIN: ${ADMIN}
+      WEBMAIL: ${WEBMAIL}
+      MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+      RELAYNETS: ${RELAYNETS}
+      RELAYHOST: ${RELAYHOST}
+      FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+      RECIPIENT_DELIMITER: ${RECIPIENT_DELIMITER}
+      DMARC_RUA: ${DMARC_RUA}
+      DMARC_RUF: ${DMARC_RUF}
+      WELCOME: ${WELCOME}
+      WELCOME_SUBJECT: ${WELCOME_SUBJECT}
+      WELCOME_BODY: ${WELCOME_BODY}
+      WEB_ADMIN: ${WEB_ADMIN}
+      WEB_WEBMAIL: ${WEB_WEBMAIL}
+      SITENAME: ${SITENAME}
+      WEBSITE: ${WEBSITE}
+      PASSWORD_SCHEME: ${PASSWORD_SCHEME}
+      REAL_IP_HEADER: ${REAL_IP_HEADER}
+      REAL_IP_FROM: ${REAL_IP_FROM}
+
+  antispam:
+    image: mailu/rspamd:${VERSION}
+    restart: always
+    volumes:
+      - "${ROOT}/filter:/var/lib/rspamd"
+      - "${ROOT}/dkim:/dkim"
+      - "${ROOT}/overrides/rspamd:/etc/rspamd/override.d"
+    depends_on:
+      - front
+    environment:
+      BIND_ADDRESS4: ${BIND_ADDRESS4}
+      BIND_ADDRESS6: ${BIND_ADDRESS6}
+      ROOT: ${ROOT}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      HOSTNAMES: ${HOSTNAMES}
+      POSTMASTER: ${POSTMASTER}
+      TLS_FLAVOR: ${TLS_FLAVOR}
+      DISABLE_STATISTICS: ${DISABLE_STATISTICS}
+      AUTH_RATELIMIT: ${AUTH_RATELIMIT}
+      ADMIN: ${ADMIN}
+      WEBMAIL: ${WEBMAIL}
+      MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+      RELAYNETS: ${RELAYNETS}
+      RELAYHOST: ${RELAYHOST}
+      FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+      RECIPIENT_DELIMITER: ${RECIPIENT_DELIMITER}
+      DMARC_RUA: ${DMARC_RUA}
+      DMARC_RUF: ${DMARC_RUF}
+      WELCOME: ${WELCOME}
+      WELCOME_SUBJECT: ${WELCOME_SUBJECT}
+      WELCOME_BODY: ${WELCOME_BODY}
+      WEB_ADMIN: ${WEB_ADMIN}
+      WEB_WEBMAIL: ${WEB_WEBMAIL}
+      SITENAME: ${SITENAME}
+      WEBSITE: ${WEBSITE}
+      PASSWORD_SCHEME: ${PASSWORD_SCHEME}
+      REAL_IP_HEADER: ${REAL_IP_HEADER}
+      REAL_IP_FROM: ${REAL_IP_FROM}
+
+  antivirus:
+    image: mailu/${ANTIVIRUS}:${VERSION}
+    restart: always
+    volumes:
+      - "${ROOT}/filter:/data"
+    environment:
+      BIND_ADDRESS4: ${BIND_ADDRESS4}
+      BIND_ADDRESS6: ${BIND_ADDRESS6}
+      ROOT: ${ROOT}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      HOSTNAMES: ${HOSTNAMES}
+      POSTMASTER: ${POSTMASTER}
+      TLS_FLAVOR: ${TLS_FLAVOR}
+      DISABLE_STATISTICS: ${DISABLE_STATISTICS}
+      AUTH_RATELIMIT: ${AUTH_RATELIMIT}
+      ADMIN: ${ADMIN}
+      WEBMAIL: ${WEBMAIL}
+      MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+      RELAYNETS: ${RELAYNETS}
+      RELAYHOST: ${RELAYHOST}
+      FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+      RECIPIENT_DELIMITER: ${RECIPIENT_DELIMITER}
+      DMARC_RUA: ${DMARC_RUA}
+      DMARC_RUF: ${DMARC_RUF}
+      WELCOME: ${WELCOME}
+      WELCOME_SUBJECT: ${WELCOME_SUBJECT}
+      WELCOME_BODY: ${WELCOME_BODY}
+      WEB_ADMIN: ${WEB_ADMIN}
+      WEB_WEBMAIL: ${WEB_WEBMAIL}
+      SITENAME: ${SITENAME}
+      WEBSITE: ${WEBSITE}
+      PASSWORD_SCHEME: ${PASSWORD_SCHEME}
+      REAL_IP_HEADER: ${REAL_IP_HEADER}
+      REAL_IP_FROM: ${REAL_IP_FROM}
+
+  webdav:
+    image: mailu/${WEBDAV}:${VERSION}
+    restart: always
+    volumes:
+      - "${ROOT}/dav:/data"
+    environment:
+      BIND_ADDRESS4: ${BIND_ADDRESS4}
+      BIND_ADDRESS6: ${BIND_ADDRESS6}
+      ROOT: ${ROOT}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      HOSTNAMES: ${HOSTNAMES}
+      POSTMASTER: ${POSTMASTER}
+      TLS_FLAVOR: ${TLS_FLAVOR}
+      DISABLE_STATISTICS: ${DISABLE_STATISTICS}
+      AUTH_RATELIMIT: ${AUTH_RATELIMIT}
+      ADMIN: ${ADMIN}
+      WEBMAIL: ${WEBMAIL}
+      MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+      RELAYNETS: ${RELAYNETS}
+      RELAYHOST: ${RELAYHOST}
+      FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+      RECIPIENT_DELIMITER: ${RECIPIENT_DELIMITER}
+      DMARC_RUA: ${DMARC_RUA}
+      DMARC_RUF: ${DMARC_RUF}
+      WELCOME: ${WELCOME}
+      WELCOME_SUBJECT: ${WELCOME_SUBJECT}
+      WELCOME_BODY: ${WELCOME_BODY}
+      WEB_ADMIN: ${WEB_ADMIN}
+      WEB_WEBMAIL: ${WEB_WEBMAIL}
+      SITENAME: ${SITENAME}
+      WEBSITE: ${WEBSITE}
+      PASSWORD_SCHEME: ${PASSWORD_SCHEME}
+      REAL_IP_HEADER: ${REAL_IP_HEADER}
+      REAL_IP_FROM: ${REAL_IP_FROM}
+
+  admin:
+    image: mailu/admin:${VERSION}
+    restart: always
+    volumes:
+      - "${ROOT}/data:/data"
+      - "${ROOT}/dkim:/dkim"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - redis
+    environment:
+      BIND_ADDRESS4: ${BIND_ADDRESS4}
+      BIND_ADDRESS6: ${BIND_ADDRESS6}
+      ROOT: ${ROOT}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      HOSTNAMES: ${HOSTNAMES}
+      POSTMASTER: ${POSTMASTER}
+      TLS_FLAVOR: ${TLS_FLAVOR}
+      DISABLE_STATISTICS: ${DISABLE_STATISTICS}
+      AUTH_RATELIMIT: ${AUTH_RATELIMIT}
+      ADMIN: ${ADMIN}
+      WEBMAIL: ${WEBMAIL}
+      MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+      RELAYNETS: ${RELAYNETS}
+      RELAYHOST: ${RELAYHOST}
+      FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+      RECIPIENT_DELIMITER: ${RECIPIENT_DELIMITER}
+      DMARC_RUA: ${DMARC_RUA}
+      DMARC_RUF: ${DMARC_RUF}
+      WELCOME: ${WELCOME}
+      WELCOME_SUBJECT: ${WELCOME_SUBJECT}
+      WELCOME_BODY: ${WELCOME_BODY}
+      WEB_ADMIN: ${WEB_ADMIN}
+      WEB_WEBMAIL: ${WEB_WEBMAIL}
+      SITENAME: ${SITENAME}
+      WEBSITE: ${WEBSITE}
+      PASSWORD_SCHEME: ${PASSWORD_SCHEME}
+      REAL_IP_HEADER: ${REAL_IP_HEADER}
+      REAL_IP_FROM: ${REAL_IP_FROM}
+
+  webmail:
+    image: "mailu/${WEBMAIL}:${VERSION}"
+    restart: always
+    volumes:
+      - "${ROOT}/webmail:/data"
+    environment:
+      BIND_ADDRESS4: ${BIND_ADDRESS4}
+      BIND_ADDRESS6: ${BIND_ADDRESS6}
+      ROOT: ${ROOT}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      HOSTNAMES: ${HOSTNAMES}
+      POSTMASTER: ${POSTMASTER}
+      TLS_FLAVOR: ${TLS_FLAVOR}
+      DISABLE_STATISTICS: ${DISABLE_STATISTICS}
+      AUTH_RATELIMIT: ${AUTH_RATELIMIT}
+      ADMIN: ${ADMIN}
+      WEBMAIL: ${WEBMAIL}
+      MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+      RELAYNETS: ${RELAYNETS}
+      RELAYHOST: ${RELAYHOST}
+      FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+      RECIPIENT_DELIMITER: ${RECIPIENT_DELIMITER}
+      DMARC_RUA: ${DMARC_RUA}
+      DMARC_RUF: ${DMARC_RUF}
+      WELCOME: ${WELCOME}
+      WELCOME_SUBJECT: ${WELCOME_SUBJECT}
+      WELCOME_BODY: ${WELCOME_BODY}
+      WEB_ADMIN: ${WEB_ADMIN}
+      WEB_WEBMAIL: ${WEB_WEBMAIL}
+      SITENAME: ${SITENAME}
+      WEBSITE: ${WEBSITE}
+      PASSWORD_SCHEME: ${PASSWORD_SCHEME}
+      REAL_IP_HEADER: ${REAL_IP_HEADER}
+      REAL_IP_FROM: ${REAL_IP_FROM}
+
+  fetchmail:
+    image: mailu/fetchmail:${VERSION}
+    restart: always
+    volumes:
+      - "${ROOT}/data:/data"
+    environment:
+      BIND_ADDRESS4: ${BIND_ADDRESS4}
+      BIND_ADDRESS6: ${BIND_ADDRESS6}
+      ROOT: ${ROOT}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      HOSTNAMES: ${HOSTNAMES}
+      POSTMASTER: ${POSTMASTER}
+      TLS_FLAVOR: ${TLS_FLAVOR}
+      DISABLE_STATISTICS: ${DISABLE_STATISTICS}
+      AUTH_RATELIMIT: ${AUTH_RATELIMIT}
+      ADMIN: ${ADMIN}
+      WEBMAIL: ${WEBMAIL}
+      MESSAGE_SIZE_LIMIT: ${MESSAGE_SIZE_LIMIT}
+      RELAYNETS: ${RELAYNETS}
+      RELAYHOST: ${RELAYHOST}
+      FETCHMAIL_DELAY: ${FETCHMAIL_DELAY}
+      RECIPIENT_DELIMITER: ${RECIPIENT_DELIMITER}
+      DMARC_RUA: ${DMARC_RUA}
+      DMARC_RUF: ${DMARC_RUF}
+      WELCOME: ${WELCOME}
+      WELCOME_SUBJECT: ${WELCOME_SUBJECT}
+      WELCOME_BODY: ${WELCOME_BODY}
+      WEB_ADMIN: ${WEB_ADMIN}
+      WEB_WEBMAIL: ${WEB_WEBMAIL}
+      SITENAME: ${SITENAME}
+      WEBSITE: ${WEBSITE}
+      PASSWORD_SCHEME: ${PASSWORD_SCHEME}
+      REAL_IP_HEADER: ${REAL_IP_HEADER}
+      REAL_IP_FROM: ${REAL_IP_FROM}
