@@ -20,12 +20,12 @@ services:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: server=true
   NFSServer:
-    privileged: true
     image: itsthenetwork/nfs-server-alpine
     hostname: nfsserver
     environment:
       SHARED_DIRECTORY: /shared
     stdin_open: true
+    privileged: true
     volumes:
     - /home/adrienm/data/nfs:/shared
     tty: true
