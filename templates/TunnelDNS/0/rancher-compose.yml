@@ -2,7 +2,7 @@ Iodined:
   scale: 1
 .catalog:
  name: "Version Initial"
- version: "v0.0.1"
+ version: "v0.0.0"
  questions:
   - variable: PORT
     label: "Iodine serveur listening port"
@@ -11,7 +11,7 @@ Iodined:
   - variable: PASS
     label: "Iodine Password"
     default: "060190"
-    type: string  
+    type: string
   - variable: HOST
     label: "Hostname iodine should be listening"
     default: "io.wheretogo.fr"

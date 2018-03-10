@@ -1,7 +1,7 @@
 .catalog:
  name: "Initial Version"
- version: "v0.0.1"
- questions:    
+ version: "v0.0.0"
+ questions:
     - variable: PATH
       label: "Path to save config on host"
       default: "/home/adrienm/data/rancher-active-proxy"
