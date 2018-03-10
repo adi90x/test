@@ -1,6 +1,6 @@
 version: '2'
 services:
-  Rancher-Active-Proxy:
+  Proxy:
     image: adi90x/rancher-active-proxy
     environment:
       DEFAULT_HOST: ${DEFAULT_HOST}
@@ -19,7 +19,7 @@ services:
     labels:
       io.rancher.container.pull_image: always
       io.rancher.scheduler.affinity:host_label: server=true
-      
+
   NFSServer:
     image: itsthenetwork/nfs-server-alpine
     hostname: nfsserver
