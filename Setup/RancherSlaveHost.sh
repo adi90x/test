@@ -1,7 +1,9 @@
 #!/bin/bash
 sudo adduser --disabled-password --gecos "" adrienm
 sudo adduser adrienm sudo
-echo "adrienm:060190" | chpasswd
+sudo sh -c 'echo "adrienm:060190" | chpasswd'
+
+sudo su adrienm
 
 sudo apt-get -y update
 sudo apt-get -y upgrade
