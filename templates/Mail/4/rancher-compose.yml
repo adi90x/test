@@ -159,7 +159,7 @@ fetchmail:
   - variable: RELAYNETS
     label: "Networks granted relay permissions"
     description: "make sure that you include your Docker internal network (default to 172.17.0.0/16)"
-    default: "172.16.0.0/12,10.32.0.0/12"
+    default: "172.16.0.0/12,10.32.0.0/12,10.42.0.0/16"
     type: string
   - variable: RELAYHOST
     label: "Host to relay"
