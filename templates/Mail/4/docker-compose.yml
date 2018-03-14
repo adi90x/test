@@ -1,51 +1,61 @@
 version: '2'
 volumes:
   certs:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
       host: 10.42.31.126
   redis:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
       host: 10.42.31.126
   data:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
       host: 10.42.31.126
   mail:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
       host: 10.42.31.126
   overrides:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
       host: 10.42.31.126
   filter:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
       host: 10.42.31.126
   dkim:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
       host: 10.42.31.126
   rspamd:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
       host: 10.42.31.126
   dav:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
       host: 10.42.31.126
   webmail:
+    external: true
     driver: rancher-nfs
     driver_opts:
       exportBase: /mailu
