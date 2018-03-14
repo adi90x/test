@@ -28,6 +28,8 @@ sudo sh -c "echo '{\"dns\": [\"8.8.8.8\", \"8.8.4.4\"]}' >> /etc/docker/daemon.j
 
 sudo service docker restart
 
+sudo restart 
+
 #Lancement RancherHostSlave
 #sudo docker run --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher rancher/agent:v1.2.9 http://www.wheretogo.fr:8080/v1/scripts/C3BB37977D64FBC75F84:1514678400000:HJzzKU8PXIg9ltn3NaIei43Y
 #Docker Cheats
