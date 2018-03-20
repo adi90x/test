@@ -4,62 +4,62 @@ volumes:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
   redis:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
   data:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
   mail:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
   overrides:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
   filter:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
   dkim:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
   rspamd:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
   dav:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
   webmail:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: /mailu
-      host: 10.42.31.126
+      exportBase: ${NFSBase}
+      host: ${NFSIP}
 services:
   front:
     image: mailu/nginx:${VERSION}
@@ -119,7 +119,7 @@ services:
       - "redis:/data"
 
   imap:
-    image: mailu/dovecot:${VERSION}
+    image: registry.gitlab.com/adi90x/mailu-dovecot-correct
     restart: always
     volumes:
       - "data:/data"
@@ -208,6 +208,7 @@ services:
       - "rspamd:/etc/rspamd/override.d"
     depends_on:
       - front
+      - redis
     environment:
       BIND_ADDRESS4: ${BIND_ADDRESS4}
       BIND_ADDRESS6: ${BIND_ADDRESS6}
