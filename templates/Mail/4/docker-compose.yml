@@ -46,7 +46,7 @@ volumes:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: ${NFSBase}
+      exportBase: ${NFSBase}/overrides
       host: ${NFSIP}
   dav:
     external: true
@@ -357,6 +357,8 @@ services:
     restart: always
     volumes:
       - "webmail:/data"
+    depends_on:
+      - imap
     environment:
       BIND_ADDRESS4: ${BIND_ADDRESS4}
       BIND_ADDRESS6: ${BIND_ADDRESS6}
