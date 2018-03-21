@@ -119,7 +119,7 @@ services:
       - "redis:/data"
 
   imap:
-    image: registry.gitlab.com/adi90x/mailu-dovecot-correct
+    image: mailu/dovecot:${VERSION}
     restart: always
     volumes:
       - "data:/data"
