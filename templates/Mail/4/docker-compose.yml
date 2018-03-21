@@ -1,5 +1,3 @@
-exportBase=/mailu
-host=10.42.95.45
 version: '2'
 volumes:
   certs:
