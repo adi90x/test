@@ -1,3 +1,5 @@
+exportBase=/mailu
+host=10.42.95.45
 version: '2'
 volumes:
   certs:
@@ -46,7 +48,7 @@ volumes:
     external: true
     driver: rancher-nfs
     driver_opts:
-      exportBase: ${NFSBase}/overrides
+      exportBase: ${NFSBase}
       host: ${NFSIP}
   dav:
     external: true
