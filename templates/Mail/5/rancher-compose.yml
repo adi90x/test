@@ -20,7 +20,7 @@ fetchmail:
   scale: 1
 .catalog:
  name: "Mailu.io V1.5"
- version: "v0.0.4"
+ version: "v0.0.5"
  questions:
   - variable: NFSBase
     label: "NFS Export Base"
