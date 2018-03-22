@@ -101,6 +101,9 @@ services:
   smtp:
     image: mailu/postfix:${VERSION}
     restart: always
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: server=true
     volumes:
       - "${ROOT}/data:/data"
       - "${ROOT}/overrides:/overrides"
