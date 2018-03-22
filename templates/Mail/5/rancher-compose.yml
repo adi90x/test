@@ -1,0 +1,244 @@
+smtp:
+  scale: 1
+antivirus:
+  scale: 1
+webmail:
+  scale: 1
+redis:
+  scale: 1
+imap:
+  scale: 1
+front:
+  scale: 1
+antispam:
+  scale: 1
+admin:
+  scale: 1
+webdav:
+  scale: 1
+fetchmail:
+  scale: 1
+.catalog:
+ name: "Mailu.io V1.5"
+ version: "v0.0.4"
+ questions:
+  - variable: NFSBase
+    label: "NFS Export Base"
+    default: "/mailu"
+    type: string
+  - variable: NFSIP
+    label: "NFS Ip of Server"
+    default: "10.42.31.126"
+    type: string
+  - variable: VIRTUAL_HOST
+    label: "Mail Server Virtual Host"
+    description: "Use by jwilder/nginx to setup virtual host name and let's encrypt to provide certificate"
+    default: "mail.wheretogo.fr,mail.menjuc.com"
+    required: true
+    type: string
+  - variable: VIRTUAL_PORT
+    label: "Mail Server Virtual Port"
+    default: "443"
+    required: true
+    type: string
+  - variable: VIRTUAL_PROTO
+    label: "Mail Server Virtual Proto"
+    description: "Not sure if it is usefull or not"
+    default: "https"
+    required: true
+    type: string
+  - variable: LETSENCRYPT_HOST
+    label: "Lets's Encrypt HostNames"
+    description: "Email use to create let's encrypt certificate"
+    default: "mail.wheretogo.fr,mail.menjuc.com"
+    required: true
+    type: string
+  - variable: LETSENCRYPT_EMAIL
+    label: "Lets's Encrypt Email"
+    description: "Email use to create let's encrypt certificate"
+    default: "amaurel90@gmail.com"
+    required: true
+    type: string
+  - variable: LETSENCRYPT_BYPASS
+    label: "ByPass to use Lets's Encrypt behind RAP"
+    default: "true"
+    type: string
+  - variable: ROOT
+    label: "Root Path"
+    description: "Set this to the path where Mailu data and configuration is stored"
+    default: "/home/adrienm/data/mailu"
+    required: true
+    type: string
+  - variable: VERSION
+    label: "Mailu Version"
+    description: "Mailu version to run (stable, 1.0, 1.1, etc. or latest)"
+    default: "master"
+    required: true
+    type: string
+  - variable: BIND_ADDRESS4
+    label: "Mailu bind address ipv4"
+    description: "Address where listening ports should bind"
+    default: "0.0.0.0"
+    required: true
+    type: string
+  - variable: BIND_ADDRESS6
+    label: "Mailu bind address ipv6"
+    description: "Address where listening ports should bind"
+    default: ":::1"
+    required: true
+    type: string
+  - variable: SECRET_KEY
+    label: "Mailu Secret Key"
+    description: "Set to a randomly generated 16 bytes string"
+    default: "060190adrienmadi"
+    required: true
+    type: string
+  - variable: DOMAIN
+    label: "Main mail domain"
+    default: "wheretogo.fr"
+    required: true
+    type: string
+  - variable: HOSTNAMES
+    label: "Exposed mail-server hostname"
+    default: "mail.wheretogo.fr,mail.menjuc.com"
+    required: true
+    type: string
+  - variable: POSTMASTER
+    label: "Postmaster"
+    description: "Postmaster local part (will append the main mail domain)"
+    default: "admin"
+    required: true
+    type: string
+  - variable: TLS_FLAVOR
+    label: "How to secure connections"
+    description: "Address where listening ports should bind"
+    default: "mail-letsencrypt"
+    type: enum
+    options:
+        - "letsencrypt"
+        - "cert"
+        - "notls"
+        - "mail"
+        - "mail-letsencrypt"
+    required: true
+    type: string
+  - variable: DISABLE_STATISTICS
+    label: "Opt Out of Statistics"
+    default: "True"
+    required: true
+    type: string
+  - variable: AUTH_RATELIMIT
+    label: "Authentication Limit"
+    description: "Authentication rate limit (per source IP address)"
+    default: "10/minute;1000/hour"
+    required: true
+    type: string
+  - variable: ADMIN
+    label: "Expose the admin interface"
+    description: "Expose the admin interface (value: true, false)"
+    default: "true"
+    required: true
+    type: string
+  - variable: WEBMAIL
+    label: "Webmail server type"
+    description: "Choose which webmail to run if any (values: roundcube, rainloop, none)"
+    default: "roundcube"
+    type: enum
+    options:
+        - "roundcube"
+        - "rainloop"
+        - "none"
+  - variable: WEBDAV
+    label: "DAV Server Implementation"
+    description: "Dav server implementation (value: radicale, none)"
+    default: "none"
+    required: true
+    type: string
+  - variable: ANTIVIRUS
+    label: "Antivirus Options"
+    description: "Antivirus solution (value: clamav, none)"
+    default: "none"
+    type: string
+  - variable: MESSAGE_SIZE_LIMIT
+    label: "Message size limit in bytes"
+    description: "Default: accept messages up to 50MB"
+    default: "50000000"
+    type: string
+  - variable: RELAYNETS
+    label: "Networks granted relay permissions"
+    description: "make sure that you include your Docker internal network (default to 172.17.0.0/16)"
+    default: "172.16.0.0/12,10.32.0.0/12,10.42.0.0/16"
+    type: string
+  - variable: RELAYHOST
+    label: "Host to relay"
+    description: "Will relay all outgoing mails if configured"
+    default: ""
+    type: string
+  - variable: FETCHMAIL_DELAY
+    label: "Fetchmail delay"
+    default: "600"
+    type: string
+  - variable: RECIPIENT_DELIMITER
+    label: "Recipent Delimiter to create local adress"
+    default: "+"
+    type: string
+    description: "Recipient delimiter, character used to delimiter localpart from custom address part e.g. localpart+custom@domain;tld"
+  - variable: DMARC_RUA
+    label: "User for DMARC RUA"
+    default: "admin"
+    type: string
+  - variable: DMARC_RUF
+    label: "User for DMARC RUF"
+    default: "admin"
+    type: string
+  - variable: WELCOME
+    label: "Enable Welcome message ( true/false)"
+    default: "true"
+    type: string
+  - variable: WELCOME_SUBJECT
+    label: "Welcome message subject"
+    default: "Welcome to your new email account"
+    type: string
+  - variable: WELCOME_BODY
+    label: "Welcome Message Body"
+    default: "Welcome to your new email account, if you can read this, then it is configured properly!"
+    type: string
+  - variable: WEB_ADMIN
+    label: "Path to the admin interface ( if enable )"
+    default: "/admin"
+    type: string
+  - variable: WEB_WEBMAIL
+    label: "Path to the Webmail"
+    default: "/webmail"
+    type: string
+  - variable: SITENAME
+    label: "Website Name"
+    default: "Wheretogo"
+    type: string
+  - variable: WEBSITE
+    label: "Linked Website URL"
+    default: "https://wheretogo.fr"
+    type: string
+  - variable: COMPOSE_PROJECT_NAME
+    label: "Docker Compose project name"
+    default: "mailu"
+    type: string
+  - variable: PASSWORD_SCHEME
+    label: "Default password scheme used for newly created accounts and changed passwords(value: SHA512-CRYPT, SHA256-CRYPT, MD5-CRYPT, CRYPT)"
+    default: "SHA512-CRYPT"
+    type: string
+  - variable: REAL_IP_HEADER
+    label: "Header to take the real ip from"
+    default: ""
+    type: string
+  - variable: REAL_IP_FROM
+    label: "IPs for nginx set_real_ip_from (CIDR list separated by commas)"
+    default: ""
+    type: string
+  - variable: DEBUG
+    label: "Enable Debug"
+    default: "False"
+    type: enum
+    options:
+        - "True"
+        - "False"
