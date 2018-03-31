@@ -53,7 +53,7 @@ services:
       DB_TYPE: "mysql"
   
   database:
-    image: registry.gitlab.com/adi90x/database
+    image: registry.gitlab.com/adi90x/mailu/database
     restart: always
     volumes:
       - "datamysql:/data"
@@ -98,7 +98,7 @@ services:
       - "redis:/data"
 
   imap:
-    image: registry.gitlab.com/adi90x/dovecot
+    image: registry.gitlab.com/adi90x/mailu/dovecot
     restart: always
     volumes:
       - "data:/data"
@@ -141,7 +141,7 @@ services:
       REAL_IP_FROM: ${REAL_IP_FROM}
 
   smtp:
-    image: registry.gitlab.com/adi90x/postfix
+    image: registry.gitlab.com/adi90x/mailu/postfix
     restart: always
     labels:
       io.rancher.container.pull_image: always
@@ -299,7 +299,7 @@ services:
       REAL_IP_FROM: ${REAL_IP_FROM}
 
   admin:
-    image: registry.gitlab.com/adi90x/admin
+    image: registry.gitlab.com/adi90x/mailu/admin
     restart: always
     volumes:
       - "data:/data"
@@ -379,7 +379,7 @@ services:
       REAL_IP_FROM: ${REAL_IP_FROM}
 
   fetchmail:
-    image: registry.gitlab.com/adi90x/fetchmail
+    image: registry.gitlab.com/adi90x/mailu/fetchmail
     restart: always
     volumes:
       - "data:/data"
