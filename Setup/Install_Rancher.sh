@@ -4,16 +4,15 @@ passwd
 adduser adrienm
 adduser adrienm sudo
 
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
-
 apt-get update
 apt-get upgrade
 
+apt-get install -y fail2ban ufw nano deborphan apt-utils build-essential bridge-utils git sudo apt-transport-https ca-certificates curl software-properties-common
 
-apt-get install -y fail2ban ufw nano deborphan apt-utils build-essential bridge-utils git  sudo apt-transport-https ca-certificates 
-apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
-apt-get install -y docker-engine
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt-get update
+apt-get install docker-ce
 
 apt-get autoremove
 apt-get remove --purge `deborphan`
@@ -30,10 +29,9 @@ echo "bind 'set match-hidden-files off'" >> /home/adrienm/.bashrc
 echo "alias up='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove'" >> /home/adrienm/.bashrc
 
 su adrienm
-mkdir /home/adrienm/data/
-mkdir /home/adrienm/Script/
-Ubuntu Server
-mkdir /home/adrienm/www/
+mkdir -p /home/adrienm/data/rancher/
+mkdir -p /home/adrienm/Script/
+
 #Ajout utilisateur au group docker pour lancement sans sudo
 sudo groupadd docker
 sudo usermod -aG docker $USER
