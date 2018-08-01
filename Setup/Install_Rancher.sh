@@ -41,7 +41,10 @@ sudo usermod -aG docker $USER
 #Copier le dossier data depuis la sauvegarde via scp
 #
 ##to modify
-scp -R adrienm@old.wheretogo.fr:/data/rancher /home/adrienm/data/rancher
+scp -R root@old.wheretogo.fr:/data/rancher /home/adrienm/data
+scp -R root@old.wheretogo.fr:/data/rancher-active-proxy /home/adrienm/data
+scp -R root@old.wheretogo.fr:/data/arbnode /home/adrienm/data
+
 sudo chown -R 102:105 /home/adrienm/data/rancher
 
 #Lancement Rancher
