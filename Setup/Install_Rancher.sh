@@ -30,6 +30,7 @@ echo "bind 'set match-hidden-files off'" >> /home/adrienm/.bashrc
 echo "alias up='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove'" >> /home/adrienm/.bashrc
 
 su adrienm
+
 mkdir -p /home/adrienm/data/rancher/
 mkdir -p /home/adrienm/Script/
 
@@ -39,6 +40,9 @@ sudo usermod -aG docker $USER
 #
 #Copier le dossier data depuis la sauvegarde via scp
 #
+##to modify
+scp -R adrienm@old.wheretogo.fr:/data/rancher /home/adrienm/data/rancher
+
 #Lancement Rancher
 docker run -d -v /home/adrienm/data/rancher/:/var/lib/mysql --restart=unless-stopped -p 8080:8080 --name=rancher-server -l rap.host=ad.wheretogo.fr -l rap.port=8080 -l rap.le_host=ad.wheretogo.fr -l  rap.le_email=amaurel90@gmail.com -l io.rancher.container.pull_image=always rancher/server
 #Docker Cheats
