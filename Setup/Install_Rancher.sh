@@ -42,6 +42,7 @@ sudo usermod -aG docker $USER
 #
 ##to modify
 scp -R adrienm@old.wheretogo.fr:/data/rancher /home/adrienm/data/rancher
+sudo chown -R 102:105 /home/adrienm/data/rancher
 
 #Lancement Rancher
 docker run -d -v /home/adrienm/data/rancher/:/var/lib/mysql --restart=unless-stopped -p 8080:8080 --name=rancher-server -l rap.host=ad.wheretogo.fr -l rap.port=8080 -l rap.le_host=ad.wheretogo.fr -l  rap.le_email=amaurel90@gmail.com -l io.rancher.container.pull_image=always rancher/server
