@@ -19,7 +19,7 @@ apt-get autoremove
 apt-get remove --purge `deborphan`
 
 
-ufw allow 22
+ufw allow 22 && ufw allow 80 && ufw allow 8080
 ufw enable
 
 service fail2ban restart
@@ -41,9 +41,14 @@ sudo usermod -aG docker $USER
 #Copier le dossier data depuis la sauvegarde via scp
 #
 ##to modify
-scp -R root@old.wheretogo.fr:/data/rancher /home/adrienm/data
-scp -R root@old.wheretogo.fr:/data/rancher-active-proxy /home/adrienm/data
-scp -R root@old.wheretogo.fr:/data/arbnode /home/adrienm/data
+#scp -R root@old.wheretogo.fr:/data/rancher /home/adrienm/data
+#scp -R root@old.wheretogo.fr:/data/rancher-active-proxy /home/adrienm/data
+#scp -R root@old.wheretogo.fr:/data/arbnode /home/adrienm/data
+
+ssh -t adrienm@old.wheretogo.fr "sudo tar -zcvf archive.tar.gz data/rancher data/rancher-active-proxy/ data/arbnode/"
+scp -R adrienm@old.wheretogo.fr:~/archive.tar.gz /home/adrienm/archive.tar.gz
+
+sudo tar -zxvf archive.tar.gz
 
 sudo chown -R 102:105 /home/adrienm/data/rancher
 
