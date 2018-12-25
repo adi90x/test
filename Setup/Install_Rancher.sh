@@ -44,13 +44,17 @@ sudo usermod -aG docker $USER
 #scp -R root@old.wheretogo.fr:/data/rancher /home/adrienm/data
 #scp -R root@old.wheretogo.fr:/data/rancher-active-proxy /home/adrienm/data
 #scp -R root@old.wheretogo.fr:/data/arbnode /home/adrienm/data
-
+#Creer une archive pour garder la structure
 ssh -t adrienm@old.wheretogo.fr "sudo tar -zcvf archive.tar.gz data/rancher data/rancher-active-proxy/ data/arbnode/"
 scp -R adrienm@old.wheretogo.fr:~/archive.tar.gz /home/adrienm/archive.tar.gz
-
 sudo tar -zxvf archive.tar.gz
-
+#Remettre les bons droits
 sudo chown -R 102:105 /home/adrienm/data/rancher
+
+#Remove useless DNS service for iodined to work
+sudo sh -c 'echo "DNSStubListener=no" >> /etc/systemd/resolved.conf'
+sudo systemctl daemon-reload
+sudo systemctl restart systemd-resolved.service
 
 #Lancement Rancher
 docker run -d -v /home/adrienm/data/rancher/:/var/lib/mysql --restart=unless-stopped -p 8080:8080 --name=rancher-server -l rap.host=ad.wheretogo.fr -l rap.port=8080 -l rap.le_host=ad.wheretogo.fr -l  rap.le_email=amaurel90@gmail.com -l io.rancher.container.pull_image=always rancher/server
