@@ -53,9 +53,9 @@ sudo chown -R 102:105 /home/adrienm/data/rancher
 
 #Remove useless DNS service for iodined to work
 sudo sh -c 'echo "DNSStubListener=no" >> /etc/systemd/resolved.conf'
-sudo sh -c 'echo "nameserver 8.8.8.8" >> /etc/resolv.conf'
-sudo sh -c 'echo "nameserver 8.8.4.4" >> /etc/resolv.conf'
-sudo sh -c 'echo "127.0.0.1 bubulette" >> /etc/hosts'
+sudo rm /etc/netplan/*.yaml
+wget -P /etc/netplan/ "https://gitlab.com/adi90x/docker-perso/raw/master/Setup/01-confignetplan.yaml"
+sudo netplan apply
 
 sudo systemctl daemon-reload
 sudo systemctl restart systemd-resolved.service
