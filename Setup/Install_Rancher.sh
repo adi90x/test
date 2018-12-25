@@ -52,7 +52,7 @@ sudo tar -zxvf archive.tar.gz
 sudo chown -R 102:105 /home/adrienm/data/rancher
 
 #Remove useless DNS service for iodined to work
-sudo sh -c 'echo "DNSStubListener=no" >> /etc/systemd/resolved.conf'
+#sudo sh -c 'echo "DNSStubListener=no" >> /etc/systemd/resolved.conf' // Pas sur que ce soit necessaire
 sudo rm /etc/netplan/*.yaml
 wget -P /etc/netplan/ "https://gitlab.com/adi90x/docker-perso/raw/master/Setup/01-confignetplan.yaml"
 sudo netplan apply
