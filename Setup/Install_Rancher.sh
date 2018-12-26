@@ -55,6 +55,9 @@ sudo chown -R 102:105 /home/adrienm/data/rancher
 #sudo sh -c 'echo "DNSStubListener=no" >> /etc/systemd/resolved.conf' // Pas sur que ce soit necessaire
 sudo rm /etc/netplan/*.yaml
 wget -P /etc/netplan/ "https://gitlab.com/adi90x/docker-perso/raw/master/Setup/01-confignetplan.yaml"
+sudo rm -f /etc/resolv.conf
+sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+ls -l /etc/resolv.conf
 sudo netplan apply
 
 sudo systemctl daemon-reload
